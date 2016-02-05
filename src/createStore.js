@@ -8,7 +8,7 @@ import sagaMiddleware                            from 'redux-saga'
 
 import domainMiddleware                          from './domainMiddleware'
 
-export default function(routes, domains) {
+function sagaMiddlewareGenerator(domains){
   let sagas = []
   for (var domainName in domains) {
     let sagasDict = domains[domainName].get('sagas')
@@ -16,11 +16,16 @@ export default function(routes, domains) {
       sagas.push(sagasDict[sagaName])
     }
   }
-  let store = compose(
+  return sagaMiddleware(...sagas),
+}
+
+export default function createStore(routes, domains, middlewareGenerators=[]) {
+  return compose(
     applyMiddleware(
-      sagaMiddleware(...sagas),
+      sagaMiddlewareGenerator(domains),
       domainMiddleware,
       thunk,
+      ...middlewareGenerators.map(generator => generator(domains)),
       createLogger({
         predicate: (getState, action) =>
         (process.env.NODE_ENV === 'development' &&
@@ -34,8 +39,8 @@ export default function(routes, domains) {
             return action
           }
         }
-        })),
+      })
+    ),
     reduxReactRouter({routes, createHistory})
   )(createStore)
-  return store
 }
