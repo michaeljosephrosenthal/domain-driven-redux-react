@@ -11,7 +11,7 @@ export default class Application {
     this.routes = properties.routes
     this.element = properties.element || document.getElementById('app')
     this.domains = properties.domains || {}
-    this.middleware = properties.middleware || []
+    this.middlewareGenerators = properties.middlewareGenerators || []
     this.reducers = {}
     for (var key in this.domains) {
       if (!t.Nil.is(this.domains[key].reducer)) {
@@ -19,7 +19,7 @@ export default class Application {
       }
     }
     if (!!this.routes) {
-      this.store = createStore(this.routes, this.domains, middleware)(combineReducers(this.reducers))
+      this.store = createStore(this.routes, this.domains, this.middlewareGenerators)(combineReducers(this.reducers))
       this.router = createRouter(this.store, this.routes)
     }
   }
