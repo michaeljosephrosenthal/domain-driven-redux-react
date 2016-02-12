@@ -1,22 +1,21 @@
-var path = require('path'),
-    webpack = require('webpack'),
-    WebpackDevServer = require('webpack-dev-server'),
-    config = require(path.join(__dirname, 'default-webpack-config'))
+var webpack = require('webpack');
+var path = require('path');
+var express = require('express')
+var webpackDevMiddleware = require('webpack-dev-middleware')
+var webpackHotMiddleware = require('webpack-hot-middleware')
+var config = require(path.join(__dirname, 'default-webpack-config'))
 
-console.log('Starting server...\n')
+var app = new express()
+var port = 3000
+var compiler = webpack(config)
 
-new WebpackDevServer(webpack(config), { // Start a server
-  publicPath: config.output.publicPath,
-  hot: true, // With hot reloading
-  inline: false,
-  historyApiFallback: true,
-  quiet: false,
-  proxy: config._config.devProxy
-}).listen(3000, 'localhost', function (err, result) {
-  if (err) {
-    console.log(err)
-  } else {
-    console.log('Server started')
-    console.log('Listening at localhost:3000')
-  }
+app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
+
+app.use(webpackHotMiddleware(compiler))
+
+app.use(express.static('static'))
+app.get("/*", function(req, res) {
+  res.sendFile(path.join(process.cwd(), 'index.html'))
 })
+
+module.exports = app
