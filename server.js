@@ -24,19 +24,3 @@ app.listen(port, function(error) {
   }
 })
 
-/**
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Redux TodoMVC example</title>
-    <link rel="stylesheet" href="/styles.css">
-    <script src="/jquery.min.js"></script>
-    <script src="/jquery.serializejson.js"></script>
-    <script src="/semantic.js"></script>
-  </head>
-  <body>
-    <div id="root"> </div>
-    <script src="/static/bundle.js"></script>
-  </body>
-</html>
-*/

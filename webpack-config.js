@@ -32,6 +32,8 @@ module.exports = {
             }, {
                 test: /\.less$/, loader: 'style!css!less'
             }, {
+                test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&' + "includePaths[]=" + (path.resolve(process.cwd(), "./node_modules"))
+            }, {
                 test: /\.woff(2)?(\?.+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" 
             }, {
                 test: /\.ttf(\?.+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" 
