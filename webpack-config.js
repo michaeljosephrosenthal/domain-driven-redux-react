@@ -3,6 +3,11 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
+    resolve: {
+        alias: {
+            react: path.resolve(__dirname, './node_modules/react'),
+        },
+    },
     devtool: 'cheap-module-eval-source-map',
     entry: [
         'webpack-hot-middleware/client',
@@ -49,6 +54,9 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ["", ".json", ".js", ".jsx"]
+        extensions: ["", ".json", ".js", ".jsx"],
+        alias: {
+            react: path.resolve(__dirname, './node_modules/react'),
+        },
     },
 }
