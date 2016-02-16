@@ -27,7 +27,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.js$|\.jsx$/,
-                loaders: [ 'babel' ],
+                loaders: [ 'babel-loader?{presets:["react","es2015","stage-0"],plugins:["transform-export-extensions"],env:{development:{presets:["react-hmre"]}, production: {plugins:["transform-react-remove-prop-types","transform-react-constant-elements","transform-react-inline-elements"]}}}' ],
                 exclude: /node_modules\/(?!reactuate)/,
                 include: [process.cwd(), __dirname]
             }, {
