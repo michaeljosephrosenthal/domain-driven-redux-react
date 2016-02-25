@@ -16,7 +16,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "fe65c5a247a4c9708773"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "19123676852bed19e7b5"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -510,8 +510,8 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(18);
-	module.exports = __webpack_require__(17);
+	__webpack_require__(19);
+	module.exports = __webpack_require__(7);
 
 
 /***/ },
@@ -552,6 +552,16 @@
 
 /***/ },
 /* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(20);
+	//require('babel-polyfill')
+	module.exports = __webpack_require__(18);
+
+/***/ },
+/* 8 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -583,7 +593,7 @@
 	};
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -598,19 +608,19 @@
 	
 	var _tcomb2 = _interopRequireDefault(_tcomb);
 	
-	var _reactDom = __webpack_require__(20);
+	var _reactDom = __webpack_require__(22);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _createStore = __webpack_require__(15);
+	var _createStore = __webpack_require__(16);
 	
 	var _createStore2 = _interopRequireDefault(_createStore);
 	
-	var _combineReducers = __webpack_require__(10);
+	var _combineReducers = __webpack_require__(11);
 	
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 	
-	var _createRouter = __webpack_require__(13);
+	var _createRouter = __webpack_require__(14);
 	
 	var _createRouter2 = _interopRequireDefault(_createRouter);
 	
@@ -651,7 +661,7 @@
 	exports.default = Application;
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -700,7 +710,7 @@
 	exports.default = Domain;
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -725,7 +735,7 @@
 	var _reduxRouter = __webpack_require__(4);
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -803,7 +813,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -855,7 +865,7 @@
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -887,7 +897,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -901,7 +911,7 @@
 	};
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -929,19 +939,19 @@
 	    })])), (0, _reduxRouter.reduxReactRouter)({ routes: routes, createHistory: _history.createHistory }))(_redux.createStore);
 	};
 	
-	var _history = __webpack_require__(19);
+	var _history = __webpack_require__(21);
 	
 	var _redux = __webpack_require__(3);
 	
 	var _reactRedux = __webpack_require__(2);
 	
-	var _reduxThunk = __webpack_require__(23);
+	var _reduxThunk = __webpack_require__(25);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
 	var _reduxRouter = __webpack_require__(4);
 	
-	var _reduxLogger = __webpack_require__(22);
+	var _reduxLogger = __webpack_require__(24);
 	
 	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 	
@@ -949,7 +959,7 @@
 	
 	var _reduxSaga2 = _interopRequireDefault(_reduxSaga);
 	
-	var _domainMiddleware = __webpack_require__(16);
+	var _domainMiddleware = __webpack_require__(17);
 	
 	var _domainMiddleware2 = _interopRequireDefault(_domainMiddleware);
 	
@@ -969,7 +979,7 @@
 	}
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -996,7 +1006,7 @@
 	};
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1006,7 +1016,7 @@
 	});
 	exports.as = exports.cancel = exports.join = exports.fork = exports.cps = exports.apply = exports.call = exports.race = exports.put = exports.take = exports.t = exports.bindActionCreators = exports.connect = exports.Route = exports.React = exports.createSaga = exports.createAction = exports.createReducer = exports.Domain = exports.Application = undefined;
 	
-	var _reactRouter = __webpack_require__(21);
+	var _reactRouter = __webpack_require__(23);
 	
 	Object.defineProperty(exports, 'Route', {
 	         enumerable: true,
@@ -1096,23 +1106,23 @@
 	         }
 	});
 	
-	var _Application2 = __webpack_require__(8);
+	var _Application2 = __webpack_require__(9);
 	
 	var _Application3 = _interopRequireDefault(_Application2);
 	
-	var _Domain2 = __webpack_require__(9);
+	var _Domain2 = __webpack_require__(10);
 	
 	var _Domain3 = _interopRequireDefault(_Domain2);
 	
-	var _createReducer2 = __webpack_require__(12);
+	var _createReducer2 = __webpack_require__(13);
 	
 	var _createReducer3 = _interopRequireDefault(_createReducer2);
 	
-	var _createAction2 = __webpack_require__(11);
+	var _createAction2 = __webpack_require__(12);
 	
 	var _createAction3 = _interopRequireDefault(_createAction2);
 	
-	var _createSaga2 = __webpack_require__(14);
+	var _createSaga2 = __webpack_require__(15);
 	
 	var _createSaga3 = _interopRequireDefault(_createSaga2);
 	
@@ -1135,7 +1145,7 @@
 	exports.t = _tcomb2.default;
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(__resourceQuery) {/*
@@ -1166,7 +1176,7 @@
 						if(fromUpdate) console.log("[HMR] Update applied.");
 						return;
 					}
-					__webpack_require__(7)(updatedModules, updatedModules);
+					__webpack_require__(8)(updatedModules, updatedModules);
 					checkForUpdate(true);
 				});
 			}
@@ -1179,31 +1189,37 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "?1000"))
 
 /***/ },
-/* 19 */
-/***/ function(module, exports) {
-
-	module.exports = require("history");
-
-/***/ },
 /* 20 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-dom");
+	module.exports = require("babel-register");
 
 /***/ },
 /* 21 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-router");
+	module.exports = require("history");
 
 /***/ },
 /* 22 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-logger");
+	module.exports = require("react-dom");
 
 /***/ },
 /* 23 */
+/***/ function(module, exports) {
+
+	module.exports = require("react-router");
+
+/***/ },
+/* 24 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-logger");
+
+/***/ },
+/* 25 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-thunk");
