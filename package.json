@@ -2,7 +2,7 @@
   "name": "reactuate",
   "version": "0.1.16",
   "description": "Reactuate is an opinionated React-based stack",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" &&   exit 1",
     "postinstall": "node ./postinstall.js"
@@ -83,5 +83,8 @@
     "plugins": [
       "transform-export-extensions"
     ]
+  },
+  "devDependencies": {
+    "expediate": "github:michaeljosephrosenthal/expediate"
   }
 }
