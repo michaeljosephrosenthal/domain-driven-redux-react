@@ -5,8 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" &&   exit 1",
-    "dist": "node-simple-webpacker --task dist --entry ./src/index.js --out ./dist/index.js --modules src",
-    "postinstall": "node ./postinstall.js"
+    "dist": "node-simple-webpacker --task dist --entry ./src/index.js --out ./dist/index.js --modules src --include-node-modules react,tcomb,redux,react-router,react-redux,react-saga"
   },
   "repository": {
     "type": "git",
