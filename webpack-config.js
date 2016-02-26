@@ -28,8 +28,8 @@ module.exports = {
             {
                 test: /\.js$|\.jsx$/,
                 loaders: [ 'babel-loader?{presets:["react","es2015","stage-0"],plugins:["transform-export-extensions"],env:{development:{presets:["react-hmre"]}, production: {plugins:["transform-react-remove-prop-types","transform-react-constant-elements","transform-react-inline-elements"]}}}' ],
-                exclude: /node_modules\/(?!reactuate)/,
-                include: [process.cwd(), __dirname]
+                exclude: /node_modules/,
+                include: [console.log(process.cwd()) || process.cwd()]
             }, {
                 test: /\.json$/, loader: 'json'
             }, {
@@ -55,8 +55,5 @@ module.exports = {
     },
     resolve: {
         extensions: ["", ".json", ".js", ".jsx"],
-        alias: {
-            react: path.resolve(__dirname, './node_modules/react'),
-        },
     },
 }
