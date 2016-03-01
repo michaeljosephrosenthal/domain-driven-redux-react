@@ -3,11 +3,6 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-    resolve: {
-        alias: {
-            react: path.resolve(__dirname, './node_modules/react'),
-        },
-    },
     devtool: 'cheap-module-eval-source-map',
     entry: [
         'webpack-hot-middleware/client',
@@ -29,7 +24,7 @@ module.exports = {
                 test: /\.js$|\.jsx$/,
                 loaders: [ 'babel-loader?{presets:["react","es2015","stage-0"],plugins:["transform-export-extensions"],env:{development:{presets:["react-hmre"]}, production: {plugins:["transform-react-remove-prop-types","transform-react-constant-elements","transform-react-inline-elements"]}}}' ],
                 exclude: /node_modules/,
-                include: [console.log(process.cwd()) || process.cwd()]
+                include: [process.cwd()]
             }, {
                 test: /\.json$/, loader: 'json'
             }, {
