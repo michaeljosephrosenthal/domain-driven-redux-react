@@ -1,3 +1,5 @@
+import { Domain } from 'strictduck-domain-driven-fullstack'
+
 export default class Domain {
 
   constructor(prefix) {
