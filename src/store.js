@@ -2,20 +2,19 @@ import { createHistory }                         from 'history'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { reduxReactRouter } from 'redux-router'
 
-import { clientStore as ddStore } from 'strictduck-domain-drivers'
+import { clientStore as ddStore } from 'strictduck-domain-driven-fullstack'
 import domainMiddlewareGenerator from './domainMiddlewareGenerator'
-import domainReducerGenerator from './domainReducerGenerator'
+import combineAllDomainReducers from './combineAllDomainReducers'
 
 export default ddStore.implement({
-    name: 'ReduxStoreDomainDriver',
+    name: 'DomainDrivenReduxStore',
     constructor({
-        Domains,
-        routes,
+        Domains, routes,
         store=createStore, 
         defaultMiddlewareGenerators=[ domainMiddlewareGenerator ],
         middlewareGenerators=[]
     }){
-        super(
+        return [
             compose(
                 applyMiddleware(
                     ...defaultMiddlewareGenerators.map(
@@ -26,8 +25,8 @@ export default ddStore.implement({
                     ),
                 ),
                 reduxReactRouter({routes, createHistory})
-            )(store)(domainReducerGenerator(Domains))
-        )
+            )(store)(combineAllDomainReducers(Domains))
+        ]
     },
     provider(){}
 })

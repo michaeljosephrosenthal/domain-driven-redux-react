@@ -1,4 +1,4 @@
-import { reactiveClient as ddReactiveClient } from 'strictduck-domain-drivers'
+import { reactiveClient as ddReactiveClient } from 'strictduck-domain-driven-fullstack'
 import store from './store'
 
 export default ddReactiveClient.implement({
@@ -11,18 +11,17 @@ export default ddReactiveClient.implement({
         middlewareGenerators = [],
         client = {},
     }){
-        super({routes, element, ...client})
+        Object.assign(client, {
+            Domains,
+            store: new store({ Domains, routes, middlewareGenerators })(domainReducerGenerator(Domains)),
+            element
+        })
 
-        this._domains = Object.assign(this._domains || {}, Domains)
-
-        this.store = new store({
-            Domains, routes, middlewareGenerators
-        })(domainReducerGenerator(this._domains))
-
-        if (!!this.routes) {
-            this.router = createRouter(this.store, this.routes)
+        if (!!routes) {
+            client.router = createRouter(client.store, routes)
         }
 
+        return [client]
     },
     provider(){
         ReactDOM.render(this.router, this.element)

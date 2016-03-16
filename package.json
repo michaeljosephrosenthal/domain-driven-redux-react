@@ -1,11 +1,12 @@
 {
-  "name": "redux-react-domain-driver",
+  "name": "domain-driven-redux-react",
   "version": "0.1.16",
   "description": "drives a redux/react domain driven client",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" &&   exit 1",
-    "dist": "node-simple-webpacker --task dist --entry ./src/index.js --out ./dist/index.js --modules src"
+    "dist": "node-simple-webpacker --task dist --entry ./src/index.js --out ./dist/index.js --modules src",
+    "watch-and-dist": "node-simple-webpacker --entry ./src/index.js --out ./dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,7 @@
     "node": ">=v5.4.1 <6.0"
   },
   "dependencies": {
-    "strictduck-domain-drivers": "strictduck/domain-drivers",
+    "strictduck-domain-driven-fullstack": "strictduck/domain-driven-fullstack",
     "strictduck": "strictduck/strictduck",
     "css-loader": "0.23.1",
     "file-loader": "0.8.5",
