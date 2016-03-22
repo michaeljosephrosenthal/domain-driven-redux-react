@@ -1,20 +1,23 @@
 import { reactiveClient as ddReactiveClient } from 'strictduck-domain-driven-fullstack'
-import store from './store'
+//import store from './store'
+import createRouter from './createRouter'
+import { render } from "react-dom";
 
 export default ddReactiveClient.implement({
     name: 'DomainDrivenReduxReactClient',
     constructor({
         Domains,
         routes,
-        element = document.getElementById('app'),
+        root,
+        elementId = 'app',
         store = store,
         middlewareGenerators = [],
         client = {},
     }){
         Object.assign(client, {
             Domains,
-            store: new store({ Domains, routes, middlewareGenerators })(domainReducerGenerator(Domains)),
-            element
+            //store: new store({ Domains, routes, middlewareGenerators })(domainReducerGenerator(Domains)),
+            elementId
         })
 
         if (!!routes) {
@@ -24,6 +27,6 @@ export default ddReactiveClient.implement({
         return [client]
     },
     provider(){
-        ReactDOM.render(this.router, this.element)
+        render(this.router || this.root, document.getElementById(this.elementId));
     }
 })

@@ -18,7 +18,7 @@ module.exports =
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2e0c03baf3f445a50e26"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "52a2a51ba34f6a8915cd"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -633,22 +633,6 @@ module.exports =
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = _client2.default;
-	
-	//export React                  from 'react'
-	//export { Route }              from 'react-router'
-	//export { connect }            from 'react-redux'
-	//export { bindActionCreators } from 'redux'
-	//export t                      from 'tcomb'
-
-	//export { take, put, race, call,
-	//         apply, cps, fork, join,
-	//         cancel, as } from 'redux-saga'
-	//export Application            from './Application'
-	//export Domain                 from './Domain'
-	//export createReducer          from './createReducer'
-	//export createAction           from './createAction'
-	//export createSaga             from './createSaga'
-	//export serverMiddleware       from './server'
 
 /***/ },
 /* 4 */
@@ -662,19 +646,23 @@ module.exports =
 	
 	var _strictduckDomainDrivenFullstack = __webpack_require__(5);
 	
-	var _store = __webpack_require__(6);
+	var _createRouter = __webpack_require__(6);
 	
-	var _store2 = _interopRequireDefault(_store);
+	var _createRouter2 = _interopRequireDefault(_createRouter);
+	
+	var _reactDom = __webpack_require__(10);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	//import store from './store'
 	exports.default = _strictduckDomainDrivenFullstack.reactiveClient.implement({
 	    name: 'DomainDrivenReduxReactClient',
 	    constructor: function constructor(_ref) {
 	        var Domains = _ref.Domains;
 	        var routes = _ref.routes;
-	        var _ref$element = _ref.element;
-	        var element = _ref$element === undefined ? document.getElementById('app') : _ref$element;
+	        var root = _ref.root;
+	        var _ref$elementId = _ref.elementId;
+	        var elementId = _ref$elementId === undefined ? 'app' : _ref$elementId;
 	        var _ref$store = _ref.store;
 	        var store = _ref$store === undefined ? store : _ref$store;
 	        var _ref$middlewareGenera = _ref.middlewareGenerators;
@@ -684,18 +672,18 @@ module.exports =
 	
 	        Object.assign(client, {
 	            Domains: Domains,
-	            store: new store({ Domains: Domains, routes: routes, middlewareGenerators: middlewareGenerators })(domainReducerGenerator(Domains)),
-	            element: element
+	            //store: new store({ Domains, routes, middlewareGenerators })(domainReducerGenerator(Domains)),
+	            elementId: elementId
 	        });
 	
 	        if (!!routes) {
-	            client.router = createRouter(client.store, routes);
+	            client.router = (0, _createRouter2.default)(client.store, routes);
 	        }
 	
 	        return [client];
 	    },
 	    provider: function provider() {
-	        ReactDOM.render(this.router, this.element);
+	        (0, _reactDom.render)(this.router || this.root, document.getElementById(this.elementId));
 	    }
 	});
 
@@ -712,149 +700,54 @@ module.exports =
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
-	var _history = __webpack_require__(7);
+	exports.default = function (store, routes) {
+	  return _react2.default.createElement(
+	    _reactRedux.Provider,
+	    { store: store },
+	    _react2.default.createElement(
+	      _reduxRouter.ReduxRouter,
+	      null,
+	      routes
+	    )
+	  );
+	};
 	
-	var _redux = __webpack_require__(8);
-	
-	var _reduxRouter = __webpack_require__(9);
-	
-	var _strictduckDomainDrivenFullstack = __webpack_require__(5);
-	
-	var _domainMiddlewareGenerator = __webpack_require__(10);
-	
-	var _domainMiddlewareGenerator2 = _interopRequireDefault(_domainMiddlewareGenerator);
-	
-	var _combineAllDomainReducers = __webpack_require__(11);
-	
-	var _combineAllDomainReducers2 = _interopRequireDefault(_combineAllDomainReducers);
-	
+	var _react = __webpack_require__(7);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reduxRouter = __webpack_require__(8);
+
+	var _reactRedux = __webpack_require__(9);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-	
-	exports.default = _strictduckDomainDrivenFullstack.clientStore.implement({
-	    name: 'DomainDrivenReduxStore',
-	    constructor: function constructor(_ref) {
-	        var Domains = _ref.Domains;
-	        var routes = _ref.routes;
-	        var _ref$store = _ref.store;
-	        var store = _ref$store === undefined ? _redux.createStore : _ref$store;
-	        var _ref$defaultMiddlewar = _ref.defaultMiddlewareGenerators;
-	        var defaultMiddlewareGenerators = _ref$defaultMiddlewar === undefined ? [_domainMiddlewareGenerator2.default] : _ref$defaultMiddlewar;
-	        var _ref$middlewareGenera = _ref.middlewareGenerators;
-	        var middlewareGenerators = _ref$middlewareGenera === undefined ? [] : _ref$middlewareGenera;
-	
-	        return [(0, _redux.compose)(_redux.applyMiddleware.apply(undefined, _toConsumableArray(defaultMiddlewareGenerators.map(function (generator) {
-	            return generator(Domains);
-	        })).concat(_toConsumableArray(middlewareGenerators.map(function (generator) {
-	            return generator(Domains);
-	        })))), (0, _reduxRouter.reduxReactRouter)({ routes: routes, createHistory: _history.createHistory }))(store)((0, _combineAllDomainReducers2.default)(Domains))];
-	    },
-	    provider: function provider() {}
-	});
-	/*
-	 * DomainDrivenStoreEnhancer
-	 *  - requires a DomainMiddlewareGenerator
-	 */
 
 /***/ },
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = require("history");
+	module.exports = require("react");
 
 /***/ },
 /* 8 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux");
+	module.exports = require("redux-router");
 
 /***/ },
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-router");
+	module.exports = require("react-redux");
 
 /***/ },
 /* 10 */
 /***/ function(module, exports) {
 
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	exports.default = function (_ref) {
-	  var getState = _ref.getState;
-	
-	  return function (next) {
-	    return function (action) {
-	      if (!!action.constructor.actionCreator) {
-	        var newAction = { type: "@@reactuate/action", payload: _extends({}, action), meta: { name: action.constructor.action } };
-	        return next(newAction);
-	      } else {
-	        return next(action);
-	      }
-	    };
-	  };
-	};
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.default = combineAllDomainReducers;
-	
-	var _combineReducers = __webpack_require__(12);
-	
-	var _combineReducers2 = _interopRequireDefault(_combineReducers);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function combineAllDomainReducers(domains) {
-	    return (0, _combineReducers2.default)(Object.keys(domains).filter(function (key) {
-	        return domains[key].reducer;
-	    }).reduce(function (map, key) {
-	        map[key] = domains[key].reducer;
-	        return map;
-	    }, {}));
-	}
-
-/***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-	
-	exports.default = function (reducers) {
-	  if ((typeof reducers === 'undefined' ? 'undefined' : _typeof(reducers)) !== 'object') {
-	    throw "Reactuate reducers should be an object (and not a function)";
-	  }
-	  return (0, _redux.combineReducers)(_extends({ router: _reduxRouter.routerStateReducer }, reducers));
-	};
-	
-	var _redux = __webpack_require__(8);
-
-	var _reduxRouter = __webpack_require__(9);
+	module.exports = require("react-dom");
 
 /***/ }
 /******/ ]);

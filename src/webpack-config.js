@@ -1,12 +1,12 @@
 var path = require('path')
-
 var webpack = require('webpack')
 
 module.exports = {
     devtool: 'cheap-module-eval-source-map',
+    context: process.cwd(),
     entry: [
         'webpack-hot-middleware/client',
-        path.join(process.cwd(), 'src/index')
+        path.join(process.cwd(), 'src/client')
     ],
     output: {
         path: path.join(process.cwd(), '/dist/'),
@@ -14,9 +14,14 @@ module.exports = {
         publicPath: '/static/'
     },
     plugins: [
+        new webpack.DefinePlugin({ JAVASCRIPT: { CONTEXT: JSON.stringify('BROWSER'), ENV: JSON.stringify('DEVELOPMENT') } }),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        new webpack.NoErrorsPlugin(),
+        new webpack.BannerPlugin(
+          'require("source-map-support").install();',
+          { raw: true, entryOnly: false }
+        )
     ],
     module: {
         loaders: [
@@ -49,6 +54,11 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ["", ".json", ".js", ".jsx"],
+		modulesDirectories: [
+			"src",
+			"node_modules",
+			"web_modules"
+		],
+        extensions: [".json", ".js", ".jsx"],
     },
 }

@@ -5,8 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" &&   exit 1",
-    "dist": "node-simple-webpacker --task dist --entry ./src/index.js --out ./dist/index.js --modules src",
-    "watch-and-dist": "node-simple-webpacker --entry ./src/index.js --out ./dist/index.js"
+    "dist": "node-simple-webpacker --react --task dist --entry ./src/index.js --out ./dist/index.js --modules src",
+    "dist-serverside": "node-simple-webpacker --task dist --entry ./src/server.js --out ./server.js",
+    "watch-and-dist": "node-simple-webpacker --react --entry ./src/index.js --out ./dist/index.js"
   },
   "repository": {
     "type": "git",
