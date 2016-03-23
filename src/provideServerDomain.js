@@ -7,7 +7,7 @@ import config from './webpack-config'
 import { Domain } from 'strictduck-domain-driven-fullstack'
 import { reactiveClient as ddReactiveClient } from 'strictduck-domain-driven-fullstack'
 
-function serverDomain(){
+export default function serverDomain(){
     const compiler = webpack(config)
     return  new Domain.implementation({
         name: '',
@@ -24,26 +24,3 @@ function serverDomain(){
         }
     })
 }
-
-export default ddReactiveClient.implement({
-    name: 'DomainDrivenReduxReactClient',
-    constructor({
-        Domains,
-        routes,
-        root,
-        elementId = 'app',
-        store = store,
-        middlewareGenerators = [],
-        client = {},
-    }){
-        Object.assign(client, {
-            Domains,
-            //store: new store({ Domains, routes, middlewareGenerators })(domainReducerGenerator(Domains)),
-            elementId
-        })
-        return [client]
-    },
-    provider(){
-        return serverDomain()
-    }
-})

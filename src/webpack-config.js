@@ -4,17 +4,18 @@ var webpack = require('webpack')
 module.exports = {
     devtool: 'cheap-module-eval-source-map',
     context: process.cwd(),
+    debug: true,
     entry: [
         'webpack-hot-middleware/client',
-        path.join(process.cwd(), 'src/client')
+        './src/index'
     ],
     output: {
-        path: path.join(process.cwd(), '/dist/'),
+        path: './dist/',
         filename: 'bundle.js',
         publicPath: '/static/'
     },
     plugins: [
-        new webpack.DefinePlugin({ JAVASCRIPT: { CONTEXT: JSON.stringify('BROWSER'), ENV: JSON.stringify('DEVELOPMENT') } }),
+		new webpack.DefinePlugin({ $ES: { CONTEXT: JSON.stringify('BROWSER'), ENV: JSON.stringify('PRODUCTION')} }),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
@@ -27,7 +28,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.js$|\.jsx$/,
-                loaders: [ 'babel-loader?{presets:["react","es2015","stage-0"],plugins:["transform-export-extensions"],env:{development:{presets:["react-hmre"]}, production: {plugins:["transform-react-remove-prop-types","transform-react-constant-elements","transform-react-inline-elements"]}}}' ],
+                loaders: [ "babel?presets[]=es2015&presets[]=stage-0&presets[]=react" ],
                 exclude: /node_modules/,
                 include: [process.cwd()]
             }, {
@@ -60,5 +61,11 @@ module.exports = {
 			"web_modules"
 		],
         extensions: [".json", ".js", ".jsx"],
+        fallback: path.join(process.cwd(), "node_modules"),
+        fallback: path.join(process.cwd(), "node_modules") 
     },
+    node: {
+		__dirname: true,
+		fs: 'empty'
+	}
 }

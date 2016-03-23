@@ -1,7 +1,8 @@
 import { reactiveClient as ddReactiveClient } from 'strictduck-domain-driven-fullstack'
 //import store from './store'
 import createRouter from './createRouter'
-import { render } from "react-dom";
+
+const provider = ($ES.CONTEXT == 'NODE' ? require('./provideServerDomain') : require('./render')).default;
 
 export default ddReactiveClient.implement({
     name: 'DomainDrivenReduxReactClient',
@@ -27,6 +28,6 @@ export default ddReactiveClient.implement({
         return [client]
     },
     provider(){
-        render(this.router || this.root, document.getElementById(this.elementId));
+        return provider.bind(this)()
     }
 })
