@@ -10,7 +10,7 @@ module.exports = {
         './src/index'
     ],
     output: {
-        path: './dist/',
+        path: path.join(process.cwd(), "dist"),
         filename: 'bundle.js',
         publicPath: '/static/'
     },
@@ -19,10 +19,6 @@ module.exports = {
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
-        new webpack.BannerPlugin(
-          'require("source-map-support").install();',
-          { raw: true, entryOnly: false }
-        )
     ],
     module: {
         loaders: [
@@ -60,10 +56,10 @@ module.exports = {
 			"node_modules",
 			"web_modules"
 		],
-        extensions: [".json", ".js", ".jsx"],
+        extensions: ["", ".json", ".js", ".jsx"],
         fallback: path.join(process.cwd(), "node_modules"),
-        fallback: path.join(process.cwd(), "node_modules") 
     },
+    resolveLoader: { fallback: path.join(process.cwd(), "node_modules") },
     node: {
 		__dirname: true,
 		fs: 'empty'
