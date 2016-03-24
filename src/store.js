@@ -1,36 +1,32 @@
-import { createHistory }                         from 'history'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { reduxReactRouter } from 'redux-router'
 
 import { clientStore as ddStore } from 'strictduck-domain-driven-fullstack'
-import domainMiddlewareGenerator from './domainMiddlewareGenerator'
 import combineAllDomainReducers from './combineAllDomainReducers'
 
-export default ddStore.implement({
-    name: 'DomainDrivenReduxStore',
+const createHistory  = ($ES.CONTEXT == 'BROWSER' ? require('history').createHistory : require('history/lib/createMemoryHistory'))
+
+export default class DomainDrivenReduxStore extends ddStore.default {
+
     constructor({
-        Domains, routes,
+        domains, routes,
         store=createStore, 
-        defaultMiddlewareGenerators=[ domainMiddlewareGenerator ],
+        defaultMiddlewareGenerators=[],
         middlewareGenerators=[]
     }){
-        return [
+        super(
             compose(
                 applyMiddleware(
                     ...defaultMiddlewareGenerators.map(
-                        generator => generator(Domains)
+                        generator => generator(domains)
                     ),
                     ...middlewareGenerators.map(
-                        generator => generator(Domains)
+                        generator => generator(domains)
                     ),
                 ),
                 reduxReactRouter({routes, createHistory})
-            )(store)(combineAllDomainReducers(Domains))
-        ]
-    },
-    provider(){}
-})
-/*
- * DomainDrivenStoreEnhancer
- *  - requires a DomainMiddlewareGenerator
- */
+            )(store)(combineAllDomainReducers(domains))
+        )
+    }
+
+}

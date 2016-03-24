@@ -1,7 +1,7 @@
 import { render } from "react-dom";
 
 export default function renderClient(){
-    render(this.router || this.root, document.getElementById(this.elementId));
+    render(this.router, document.getElementById(this.elementId));
 }
 
 /*

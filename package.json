@@ -5,9 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" &&   exit 1",
-    "dist-for-browser": "node-simple-webpacker --react --context BROWSER --task dist --entry ./src/index.js --out ./browser.js --modules src",
-    "dist-for-node": "node-simple-webpacker --react --context NODE --task dist --entry ./src/index.js --out ./node.js --modules src",
-    "watch-and-dist": "node-simple-webpacker --react --entry ./src/index.js --out ./dist/index.js"
+    "dist-for-browser": "node-simple-webpacker --react true --context BROWSER --task dist --entry ./src/index.js --out ./browser.js --modules src",
+    "dist-for-node": "node-simple-webpacker --react true --context NODE --task dist --entry ./src/index.js --out ./node.js --modules src",
+    "watch-and-dist": "node-simple-webpacker --react true --entry ./src/index.js --out ./dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -24,8 +24,6 @@
     "node": ">=v5.4.1 <6.0"
   },
   "dependencies": {
-    "strictduck-domain-driven-fullstack": "strictduck/domain-driven-fullstack",
-    "strictduck": "strictduck/strictduck",
     "css-loader": "0.23.1",
     "file-loader": "0.8.5",
     "flux-standard-action": "0.6.0",
@@ -47,6 +45,9 @@
     "redux-router": "1.0.0-beta7",
     "redux-saga": "0.6.0",
     "redux-thunk": "1.0.3",
+    "source-map-support": "^0.4.0",
+    "strictduck": "strictduck/strictduck",
+    "strictduck-domain-driven-fullstack": "strictduck/domain-driven-fullstack",
     "style-loader": "0.13.0",
     "tcomb": "2.6.0",
     "tcomb-form-types": "1.1.0",

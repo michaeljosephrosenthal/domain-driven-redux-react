@@ -1,25 +1,58 @@
-import t from 'tcomb'
-import { Domain, createAction, createReducer } from 'reactuate'
+import createReducer from './createReducer'
+import createAction from './createAction'
+import { utils } from 'strictduck'
 
-function unpackDataFlows(dataFlows){
-    
+function nameActionCreator({prefix, name}){
+    return `${prefix}_${name.toLowerCase()}`
 }
 
-function addActionToDomain(domain, { action, reducer }){
-    let {type, payload} = action
-    let act = createAction(domain, type, payload)
-    return [act, reducer]
+function type({prefix, name}){
+    return `@@${prefix}/${name}`
 }
 
-export function BuildDomain({
-    name, initialState=[], dataFlows=[], ...rest
-}){
-    const domain = new Domain(name)
-    const reducerCases = dataFlows
-        .map( dataFlow => addActionToDomain(domain, dataFlow))
-        .reduce( (cases, reducerCase) => [...cases, ...reducerCase] , [])
-    createReducer(domain, initialState, ...reducerCases)
-    Object.keys(rest).map(k => domain[k] = rest[k])
+function flowToAction(prefix, name){
+    return utils.nameObj({
+        name: nameActionCreator({prefix, name}),
+        object: function(payload){
+            return {
+                type: type({prefix, name}),
+                payload
+            }
+        }
+    })
+}
+
+function flowToReducer(prefix, name, reducerCase){
+  return (state, action) =>
+      (action.type === type({prefix, name})) ?
+          reducerCase(state, payload) :
+          state
+}
+
+function mergeReducers(initialState, reducers){
+    return (state = initialState, action) => reducers.reduce(
+        (state, reducer) => reducer(state, action), state)
+}
+
+export function unpackDataFlowsIntoDomain(domain){
+    let dataFlows = domain.get('dataFlows')
+    let prefix = domain.prefix
+    if(dataFlows && Object.keys(dataFlows).length){
+        Object.keys(dataFlows).forEach(name => {
+            domain.register('actions', nameActionCreator({prefix, name}), flowToAction(prefix, name))
+        })
+        domain.reducer = mergeReducers(
+            domain.initialState || [],
+            Object.keys(dataFlows).map(name => flowToReducer(prefix, name, dataFlows[name]))
+        )
+    }
     return domain
 }
 
+export default function unpackDataFlowsIntoDomains(domains){
+    return Object.keys(domains)
+        .reduce((newDomains, k) => {
+            newDomains[k] = unpackDataFlowsIntoDomains(domains[k]);
+            return newDomains
+        }, {})
+}
