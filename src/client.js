@@ -1,4 +1,5 @@
-import { reactiveClient as ddReactiveClient } from 'strictduck-domain-driven-fullstack'
+import { resolve } from 'strictduck'
+import { reactiveClient as ddReactiveClient, storePersistencePlugin } from 'strictduck-domain-driven-fullstack'
 import reduxStore from './store'
 import createRouter from './createRouter'
 import domainRouteGenerator from './domainRouteGenerator'
@@ -12,10 +13,14 @@ export default ddReactiveClient.implement({
         Domains: domains,
         elementId = 'app',
         DomainDrivenClientStore: Store = reduxStore,
+        DomainDrivenStorePersistencePlugin: persister,
         routes,
         middlewareGenerators = [],
         client = {}
     }){
+        if(!(persister instanceof Error))
+            middlewareGenerators.push((domains) => persister.middlewareGenerator({db: persister.db, domains}));
+
         if (Store instanceof Error) Store = reduxStore;
 
         domains = expandReduxDomains(domains)

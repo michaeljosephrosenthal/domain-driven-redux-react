@@ -2,11 +2,11 @@ import createReducer from './createReducer'
 import createAction from './createAction'
 import { utils } from 'strictduck'
 
-function nameActionCreator({prefix, name}){
-    return `${prefix}_${name.toLowerCase()}`
+function nameActionCreator({name}){
+    return name.toLowerCase().replace(/_([a-z])/g, g => g[1].toUpperCase())
 }
 
-function type({prefix, name}){
+function actionType({prefix, name}){
     return `@@${prefix}/${name}`
 }
 
@@ -15,7 +15,7 @@ function flowToAction(prefix, name){
         name: nameActionCreator({prefix, name}),
         object: function(payload){
             return {
-                type: type({prefix, name}),
+                type: actionType({prefix, name}),
                 payload
             }
         }
@@ -23,8 +23,8 @@ function flowToAction(prefix, name){
 }
 
 function flowToReducer(prefix, name, reducerCase){
-  return (state, action) =>
-      (action.type === type({prefix, name})) ?
+  return (state, {type, payload}) =>
+      (type === actionType({prefix, name})) ?
           reducerCase(state, payload) :
           state
 }
