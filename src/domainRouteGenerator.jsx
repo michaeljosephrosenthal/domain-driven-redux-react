@@ -8,7 +8,7 @@ function filterDomainsForType(domains, type){
 }
 
 function route(domain){
-    return (<Route path="/" component={domain.get('route').component}/>)
+    return domain.get('route').route || (<Route path="/" component={domain.get('route').component}/>)
 }
 
 function extractRootRoute(domains){

@@ -5,9 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" &&   exit 1",
-    "dist-for-browser": "node-simple-webpacker --react true --context BROWSER --task dist --entry ./src/index.js --out ./browser.js --modules src",
-    "dist-for-node": "node-simple-webpacker --react true --context NODE --task dist --entry ./src/index.js --out ./node.js --modules src",
-    "watch-and-dist": "node-simple-webpacker --react true --entry ./src/index.js --out ./dist/index.js"
+    "dist-for-browser": "polypacker --preset FULLSTACK_COMPONENT --context BROWSER",
+    "dist-for-node": "polypacker --preset FULLSTACK_COMPONENT --context NODE",
+    "dist": "polypacker --preset FULLSTACK_COMPONENT --env PRODUCTION",
+    "watch": "polypacker --preset FULLSTACK_COMPONENT --watch"
   },
   "repository": {
     "type": "git",
