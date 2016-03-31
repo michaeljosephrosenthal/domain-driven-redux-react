@@ -4,11 +4,8 @@
   "description": "drives a redux/react domain driven client",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" &&   exit 1",
-    "dist-for-browser": "polypacker --preset FULLSTACK_COMPONENT --context BROWSER",
-    "dist-for-node": "polypacker --preset FULLSTACK_COMPONENT --context NODE",
-    "dist": "polypacker --preset FULLSTACK_COMPONENT --env PRODUCTION",
-    "watch": "polypacker --preset FULLSTACK_COMPONENT --watch"
+    "dist": "polypacker --preset FULLSTACK_COMPONENT  --babelPreset react --env PRODUCTION",
+    "watch": "polypacker --preset FULLSTACK_COMPONENT --watch --babelPreset react"
   },
   "repository": {
     "type": "git",
@@ -19,7 +16,7 @@
     "redux",
     "frontend"
   ],
-  "author": "Yurii Rashkovskii <yrashk@gmail.com>",
+  "author": "Michael Joseph Rosenthal",
   "license": "Apache-2.0",
   "engines": {
     "node": ">=v5.4.1 <6.0"
@@ -67,6 +64,6 @@
   },
   "homepage": "https://github.com/michaeljosephrosenthal/redux-react-domain-driver#readme",
   "devDependencies": {
-    "node-simple-webpacker": "github:michaeljosephrosenthal/node-simple-webpacker"
+    "polypacker": "github:michaeljosephrosenthal/polypacker"
   }
 }
