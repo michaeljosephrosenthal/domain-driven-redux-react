@@ -5,11 +5,6 @@ module.exports = {
     devtool: 'source-map',
     context: process.cwd(),
     debug: true,
-    resolve: {
-        alias: {
-            react: path.join(process.cwd(), './node_modules/react'),
-        },
-    },
     entry: [
         'webpack-hot-middleware/client',
         './src/index'
@@ -63,6 +58,9 @@ module.exports = {
 		],
         extensions: ["", ".json", ".js", ".jsx"],
         fallback: path.join(process.cwd(), "node_modules"),
+        alias: {
+            react: path.join(process.cwd(), './node_modules/react'),
+        },
     },
     resolveLoader: { fallback: path.join(process.cwd(), "node_modules") },
     node: {
