@@ -17,6 +17,33 @@ function extractRootRoute(domains){
         .map(route)[0]
 }
 
+function findContainerizedRoutes(domains){
+    return filterDomainsForType(domains, 'route')
+        .map(d => d.get('route'))
+        .filter(route => route.isContainer)
+}
+
+export function swapRouteComponentForContainer({route, domainRoutes}){
+    let match = domainRoutes.filter(r => r.original == route.props.component)[0]
+    return React.cloneElement(
+        route,
+        match ? {
+            component: match.component,
+            key: route.props.key || route.props.path
+        } : {},
+        route.props.children ?
+            route.props.children.map(route => swapRouteComponentForContainer({route, domainRoutes})) :
+            undefined
+    )
+}
+
+function swapContainersIntoRoutes(route, domains){
+    return swapRouteComponentForContainer({
+        route,
+        domainRoutes: findContainerizedRoutes(domains)
+    })
+}
+
 export default function domainRouteGenerator(domains){
-    return extractRootRoute(domains)
+    return swapContainersIntoRoutes(extractRootRoute(domains), domains)
 }

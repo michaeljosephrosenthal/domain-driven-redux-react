@@ -14,8 +14,10 @@ export function domainReduxConnector(domain){
 }
 
 export function connectDomainRoutes(domain){
-    if(!(domain.get('actions') && Object.keys(domain.get('actions')).length))
-        domain = unpackDataFlowsIntoDomain(domain);
+    if(!(domain.get('actions') && Object.keys(domain.get('actions')).length)){
+        domain = unpackDataFlowsIntoDomain(domain)
+    }
+    domain.register('route', 'original', domain.get('route').component)
     domain.register('route', 'component', domainReduxConnector(domain))
     domain.register('route', 'isContainer', true)
     return domain
