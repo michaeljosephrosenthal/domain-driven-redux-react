@@ -5,6 +5,11 @@ module.exports = {
     devtool: 'source-map',
     context: process.cwd(),
     debug: true,
+    resolve: {
+        alias: {
+            react: path.join(process.cwd(), './node_modules/react'),
+        },
+    },
     entry: [
         'webpack-hot-middleware/client',
         './src/index'

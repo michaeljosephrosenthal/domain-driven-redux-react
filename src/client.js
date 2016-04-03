@@ -29,6 +29,8 @@ export default ddReactiveClient.implement({
             routes: routes || client.routes || domainRouteGenerator(domains),
             elementId
         })
+        if(persister && persister.authenticateRoutes)
+            client.routes = persister.authenticateRoutes(client.routes)
 
         client.store = new Store({ domains, routes: client.routes, middlewareGenerators })
         client.router = createRouter(client.store, client.routes)
