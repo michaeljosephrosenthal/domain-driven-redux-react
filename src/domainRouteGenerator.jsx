@@ -30,7 +30,7 @@ export function swapRouteComponentForContainer({route, domainRoutes}){
         match ? {
             component: match.component,
             key: route.props.key || route.props.path
-        } : {},
+        } : {key: route.props.key || route.props.path},
         route.props.children ?
             route.props.children.map(route => swapRouteComponentForContainer({route, domainRoutes})) :
             undefined
