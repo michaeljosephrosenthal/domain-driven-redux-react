@@ -9,20 +9,30 @@ import { reactiveClient as ddReactiveClient } from 'strictduck-domain-driven-ful
 
 export default function serverDomain(){
     const compiler = webpack(config)
+    if($ES.ENV == 'PRODUCTION'){
+        compiler.run((err, stats) => {
+            if(err) console.log('err', err);
+        })
+    }
     return new Domain.implementation({
         name: '',
         middleware: ($ES.ENV != 'PRODUCTION' ? [
             webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }),
             webpackHotMiddleware(compiler),
             express.static('static')
-        ] : [
-            express.static('static')
-        ]),
+        ] : [ ]),
         routes: {
+            ...( $ES.ENV == 'PRODUCTION' ? {
+                'static/bundle.js': {
+                    methods: ['get'],
+                    handlers: [ (req, res, next) => res.sendFile(path.join(process.cwd(), 'dist/bundle.js')) ]
+                }
+            } : {}),
             '*': {
                 methods: ['get'],
                 handlers: [ (req, res, next) => res.sendFile(path.join(process.cwd(), 'index.html')) ]
             }
-        }
+        },
+        order: $ES.ENV == 'PRODUCTION' ? ['static/bundle.js', '*'] : ['*'] 
     })
 }

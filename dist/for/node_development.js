@@ -18,7 +18,7 @@ module.exports =
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "752507ea8cee6ce98dcd"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7cecfa19575f05d6dd04"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -666,7 +666,7 @@ module.exports =
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var _provider = ( true ? __webpack_require__(23) : require('./render')).default;
+	var _provider = ( true ? console.log('wat') || __webpack_require__(23) : require('./render')).default;
 	
 	exports.default = _strictduckDomainDrivenFullstack.reactiveClient.implement({
 	    name: 'DomainDrivenReduxReactClient',
@@ -1264,6 +1264,9 @@ module.exports =
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	exports.default = serverDomain;
 	
 	var _webpack = __webpack_require__(24);
@@ -1274,19 +1277,23 @@ module.exports =
 	
 	var _path2 = _interopRequireDefault(_path);
 	
-	var _webpackDevMiddleware = __webpack_require__(26);
+	var _fs = __webpack_require__(26);
+	
+	var _fs2 = _interopRequireDefault(_fs);
+	
+	var _webpackDevMiddleware = __webpack_require__(27);
 	
 	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 	
-	var _webpackHotMiddleware = __webpack_require__(27);
+	var _webpackHotMiddleware = __webpack_require__(28);
 	
 	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 	
-	var _express = __webpack_require__(28);
+	var _express = __webpack_require__(29);
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _webpackConfig = __webpack_require__(29);
+	var _webpackConfig = __webpack_require__(30);
 	
 	var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
 	
@@ -1296,17 +1303,30 @@ module.exports =
 	
 	function serverDomain() {
 	    var compiler = (0, _webpack2.default)(_webpackConfig2.default);
+	    if (false) {
+	        compiler.run(function (err, stats) {
+	            if (err) console.log('err', err);
+	        });
+	    }
 	    return new _strictduckDomainDrivenFullstack.Domain.implementation({
 	        name: '',
-	        middleware:  true ? [(0, _webpackDevMiddleware2.default)(compiler, { noInfo: true, publicPath: _webpackConfig2.default.output.publicPath }), (0, _webpackHotMiddleware2.default)(compiler), _express2.default.static('static')] : [_express2.default.static('static')],
-	        routes: {
+	        middleware:  true ? [(0, _webpackDevMiddleware2.default)(compiler, { noInfo: true, publicPath: _webpackConfig2.default.output.publicPath }), (0, _webpackHotMiddleware2.default)(compiler), _express2.default.static('static')] : [],
+	        routes: _extends({},  false ? {
+	            'static/bundle.js': {
+	                methods: ['get'],
+	                handlers: [function (req, res, next) {
+	                    return res.sendFile(_path2.default.join(process.cwd(), 'dist/bundle.js'));
+	                }]
+	            }
+	        } : {}, {
 	            '*': {
 	                methods: ['get'],
 	                handlers: [function (req, res, next) {
 	                    return res.sendFile(_path2.default.join(process.cwd(), 'index.html'));
 	                }]
 	            }
-	        }
+	        }),
+	        order:  false ? ['static/bundle.js', '*'] : ['*']
 	    });
 	}
 
@@ -1326,22 +1346,28 @@ module.exports =
 /* 26 */
 /***/ function(module, exports) {
 
-	module.exports = require("webpack-dev-middleware");
+	module.exports = require("fs");
 
 /***/ },
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = require("webpack-hot-middleware");
+	module.exports = require("webpack-dev-middleware");
 
 /***/ },
 /* 28 */
 /***/ function(module, exports) {
 
-	module.exports = require("express");
+	module.exports = require("webpack-hot-middleware");
 
 /***/ },
 /* 29 */
+/***/ function(module, exports) {
+
+	module.exports = require("express");
+
+/***/ },
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1353,13 +1379,28 @@ module.exports =
 	    devtool: 'source-map',
 	    context: process.cwd(),
 	    debug: true,
-	    entry: ['webpack-hot-middleware/client', './src/index'],
+	    target: 'web',
+	    entry:  true ? ['webpack-hot-middleware/client', './src/index'] : ['./src/index'],
 	    output: {
 	        path: path.join(process.cwd(), "dist"),
 	        filename: 'bundle.js',
 	        publicPath: '/static/'
 	    },
-	    plugins: [new webpack.DefinePlugin({ $ES: { CONTEXT: JSON.stringify('BROWSER'), ENV: JSON.stringify('PRODUCTION') } }), new webpack.optimize.OccurenceOrderPlugin(), new webpack.HotModuleReplacementPlugin(), new webpack.NoErrorsPlugin()],
+	    plugins:  true ? [new webpack.DefinePlugin({ $ES: { CONTEXT: JSON.stringify('BROWSER'), ENV: JSON.stringify(("DEVELOPMENT")) } }), new webpack.optimize.OccurenceOrderPlugin(), new webpack.HotModuleReplacementPlugin(), new webpack.NoErrorsPlugin()] : [new webpack.DefinePlugin({ $ES: { CONTEXT: JSON.stringify('BROWSER'), ENV: JSON.stringify($ES.ENV) } }), new webpack.DefinePlugin({ "process.env": { NODE_ENV: '"production"' } }), new webpack.optimize.DedupePlugin(), new webpack.optimize.OccurenceOrderPlugin(), new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })],
+	    resolveLoader: {
+	        fallback: path.join(process.cwd(), "node_modules"),
+	        alias: { polypack: 'callback?polypack' }
+	    },
+	    callbackLoader: {
+	        polypack: function polypack(mod) {
+	            var compound_version = 'browser_' + ("DEVELOPMENT").toLowerCase();
+	            if (mod) {
+	                return 'require("' + mod + '/dist/for/' + compound_version + '") //polypacked secondhand';
+	            } else {
+	                return 'require("./for/' + compound_version + '") //polypacked by dist';
+	            }
+	        }
+	    },
 	    module: {
 	        loaders: [{
 	            test: /\.js$|\.jsx$/,
@@ -1396,7 +1437,6 @@ module.exports =
 	            react: path.join(process.cwd(), './node_modules/react')
 	        }
 	    },
-	    resolveLoader: { fallback: path.join(process.cwd(), "node_modules") },
 	    node: {
 	        __dirname: true,
 	        fs: 'empty'

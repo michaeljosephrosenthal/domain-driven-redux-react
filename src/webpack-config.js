@@ -5,21 +5,42 @@ module.exports = {
     devtool: 'source-map',
     context: process.cwd(),
     debug: true,
-    entry: [
+    target: 'web',
+    entry: ($ES.ENV != 'PRODUCTION') ? [
         'webpack-hot-middleware/client',
         './src/index'
-    ],
+    ] : [ './src/index' ],
     output: {
         path: path.join(process.cwd(), "dist"),
         filename: 'bundle.js',
         publicPath: '/static/'
     },
-    plugins: [
-		new webpack.DefinePlugin({ $ES: { CONTEXT: JSON.stringify('BROWSER'), ENV: JSON.stringify('PRODUCTION')} }),
+    plugins: ($ES.ENV != 'PRODUCTION') ? [
+		new webpack.DefinePlugin({ $ES: { CONTEXT: JSON.stringify('BROWSER'), ENV: JSON.stringify($ES.ENV)} }),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin(),
+        new webpack.NoErrorsPlugin()
+    ] : [
+		new webpack.DefinePlugin({ $ES: { CONTEXT: JSON.stringify('BROWSER'), ENV: JSON.stringify($ES.ENV)} }),
+		new webpack.DefinePlugin({"process.env": {NODE_ENV: '"production"'}}),
+		new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.OccurenceOrderPlugin(),
+		new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})
     ],
+    resolveLoader: {
+        fallback: path.join(process.cwd(), "node_modules") ,
+        alias: { polypack: 'callback?polypack' }
+    },
+    callbackLoader: {
+        polypack: function(mod) {
+            var compound_version = 'browser_' + $ES.ENV.toLowerCase()
+            if(mod){
+                return 'require("' + mod + '/dist/for/' + compound_version + '") //polypacked secondhand'
+            } else {
+                return 'require("./for/' + compound_version + '") //polypacked by dist'
+            }
+        }
+    },
     module: {
         loaders: [
             {
@@ -62,7 +83,6 @@ module.exports = {
             react: path.join(process.cwd(), './node_modules/react'),
         },
     },
-    resolveLoader: { fallback: path.join(process.cwd(), "node_modules") },
     node: {
 		__dirname: true,
 		fs: 'empty'

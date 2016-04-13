@@ -56,7 +56,7 @@ module.exports =
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "6ab752a9afbf03301338"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "59fb8adb1730dcdd56df"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -704,7 +704,7 @@ module.exports =
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var _provider = ( false ? require('./provideServerDomain') : __webpack_require__(24)).default;
+	var _provider = ( false ? console.log('wat') || require('./provideServerDomain') : __webpack_require__(24)).default;
 	
 	exports.default = _strictduckDomainDrivenFullstack.reactiveClient.implement({
 	    name: 'DomainDrivenReduxReactClient',
