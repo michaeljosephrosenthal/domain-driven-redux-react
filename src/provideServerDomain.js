@@ -9,13 +9,15 @@ import { reactiveClient as ddReactiveClient } from 'strictduck-domain-driven-ful
 
 export default function serverDomain(){
     const compiler = webpack(config)
-    return  new Domain.implementation({
+    return new Domain.implementation({
         name: '',
-        middleware: [
+        middleware: ($ES.ENV != 'PRODUCTION' ? [
             webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }),
             webpackHotMiddleware(compiler),
             express.static('static')
-        ],
+        ] : [
+            express.static('static')
+        ]),
         routes: {
             '*': {
                 methods: ['get'],
