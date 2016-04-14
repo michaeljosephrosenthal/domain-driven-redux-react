@@ -2,9 +2,9 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-    devtool: 'source-map',
+    ...($ES.ENV != 'PRODUCTION' ? {devtool:  'source-map'} : {}),
     context: process.cwd(),
-    debug: true,
+    debug: ($ES.ENV != 'PRODUCTION'),
     target: 'web',
     entry: ($ES.ENV != 'PRODUCTION') ? [
         'webpack-hot-middleware/client',
@@ -25,7 +25,7 @@ module.exports = {
 		new webpack.DefinePlugin({"process.env": {NODE_ENV: '"production"'}}),
 		new webpack.optimize.DedupePlugin(),
         new webpack.optimize.OccurenceOrderPlugin(),
-		new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})
+		//new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})
     ],
     resolveLoader: {
         fallback: path.join(process.cwd(), "node_modules") ,
