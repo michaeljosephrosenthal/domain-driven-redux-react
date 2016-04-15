@@ -24,9 +24,8 @@ export function connectDomainRoutes(domain){
 }
 
 export function expandReduxDomain(domain){
-    let dataFlows = domain.get('dataFlows')
-    let component = domain.get('route').component
-    if(Object.keys(dataFlows).length && component){
+    let { component, isContainer } = domain.get('route')
+    if(component && !isContainer && Object.keys(domain.get('dataFlows')).length){
         domain = connectDomainRoutes(domain)
     }
     return domain
