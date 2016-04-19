@@ -64,6 +64,7 @@
   },
   "homepage": "https://github.com/michaeljosephrosenthal/redux-react-domain-driver#readme",
   "devDependencies": {
+    "html-webpack-plugin": "^2.7.2",
     "polypacker": "github:michaeljosephrosenthal/polypacker"
   }
 }

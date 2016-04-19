@@ -30,7 +30,7 @@ export default function serverDomain(){
             } : {}),
             '*': {
                 methods: ['get'],
-                handlers: [ (req, res, next) => res.sendFile(path.join(process.cwd(), 'index.html')) ]
+                handlers: [ (req, res, next) => res.sendFile(path.join(process.cwd(), 'dist/index.html')) ]
             }
         },
         order: $ES.ENV == 'PRODUCTION' ? ['static/bundle.js', '*'] : ['*'] 

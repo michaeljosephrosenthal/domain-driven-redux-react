@@ -1,49 +1,56 @@
 var path = require('path')
 var webpack = require('webpack')
-
-module.exports = {
-    ...($ES.ENV != 'PRODUCTION' ? {devtool:  'source-map'} : {}),
-    context: process.cwd(),
-    debug: ($ES.ENV != 'PRODUCTION'),
-    target: 'web',
-    entry: ($ES.ENV != 'PRODUCTION') ? [
-        'webpack-hot-middleware/client',
-        './src/index'
-    ] : [ './src/index' ],
-    output: {
-        path: path.join(process.cwd(), "dist"),
-        filename: 'bundle.js',
-        publicPath: '/static/'
-    },
-    plugins: ($ES.ENV != 'PRODUCTION') ? [
-		new webpack.DefinePlugin({ $ES: { CONTEXT: JSON.stringify('BROWSER'), ENV: JSON.stringify($ES.ENV)} }),
-        new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
-    ] : [
-		new webpack.DefinePlugin({ $ES: { CONTEXT: JSON.stringify('BROWSER'), ENV: JSON.stringify($ES.ENV)} }),
-		new webpack.DefinePlugin({"process.env": {NODE_ENV: '"production"'}}),
-		new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.OccurenceOrderPlugin(),
-		//new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})
-    ],
-    resolveLoader: {
-        fallback: path.join(process.cwd(), "node_modules") ,
-        alias: { polypack: 'callback?polypack' }
-    },
-    callbackLoader: {
-        polypack: function(mod) {
-            var compound_version = 'browser_' + $ES.ENV.toLowerCase()
-            if(mod){
-                return 'require("' + mod + '/dist/for/' + compound_version + '") //polypacked secondhand'
-            } else {
-                return 'require("./for/' + compound_version + '") //polypacked by dist'
+module.exports = function({title, htmlTemplate}){
+    var htmlPlugin = new HtmlWebpackPlugin({
+        title: title || 'Bufflehead App',
+        filename: 'dist/index.html',
+        template: htmlTemplate || path.join(__dirname, 'template.html')
+    })
+    return {
+        ...($ES.ENV != 'PRODUCTION' ? {devtool:  'source-map'} : {}),
+        context: process.cwd(),
+        debug: ($ES.ENV != 'PRODUCTION'),
+        target: 'web',
+        entry: ($ES.ENV != 'PRODUCTION') ? [
+            'webpack-hot-middleware/client',
+            './src/index'
+        ] : [ './src/index' ],
+        output: {
+            path: path.join(process.cwd(), "dist"),
+            filename: 'bundle.js',
+            publicPath: '/static/'
+        },
+        plugins: ($ES.ENV != 'PRODUCTION') ? [
+            new webpack.DefinePlugin({ $ES: { CONTEXT: JSON.stringify('BROWSER'), ENV: JSON.stringify($ES.ENV)} }),
+            new webpack.optimize.OccurenceOrderPlugin(),
+            new webpack.HotModuleReplacementPlugin(),
+            new webpack.NoErrorsPlugin(),
+            htmlPlugin
+        ] : [
+            new webpack.DefinePlugin({ $ES: { CONTEXT: JSON.stringify('BROWSER'), ENV: JSON.stringify($ES.ENV)} }),
+            new webpack.DefinePlugin({"process.env": {NODE_ENV: '"production"'}}),
+            new webpack.optimize.DedupePlugin(),
+            new webpack.optimize.OccurenceOrderPlugin(),
+            htmlPlugin
+            //new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})
+        ],
+        resolveLoader: {
+            fallback: path.join(process.cwd(), "node_modules") ,
+            alias: { polypack: 'callback?polypack' }
+        },
+        callbackLoader: {
+            polypack: function(mod) {
+                var compound_version = 'browser_' + $ES.ENV.toLowerCase()
+                if(mod){
+                    return 'require("' + mod + '/dist/for/' + compound_version + '") //polypacked secondhand'
+                } else {
+                    return 'require("./for/' + compound_version + '") //polypacked by dist'
+                }
             }
-        }
-    },
-    module: {
-        loaders: [
-            {
+        },
+        module: {
+            loaders: [
+                {
                 test: /\.js$|\.jsx$/,
                 loaders: [ "babel?presets[]=es2015&presets[]=stage-0&presets[]=react" ],
                 exclude: /node_modules/,
@@ -69,22 +76,23 @@ module.exports = {
             }, {
                 test: /\.jpg$/, loader: "file-loader" 
             } 
-        ]
-    },
-    resolve: {
-		modulesDirectories: [
-			"src",
-			"node_modules",
-			"web_modules"
-		],
-        extensions: ["", ".json", ".js", ".jsx"],
-        fallback: path.join(process.cwd(), "node_modules"),
-        alias: {
-            react: path.join(process.cwd(), './node_modules/react'),
+            ]
         },
-    },
-    node: {
-		__dirname: true,
-		fs: 'empty'
-	}
+        resolve: {
+            modulesDirectories: [
+                "src",
+                "node_modules",
+                "web_modules"
+            ],
+            extensions: ["", ".json", ".js", ".jsx"],
+            fallback: path.join(process.cwd(), "node_modules"),
+            alias: {
+                react: path.join(process.cwd(), './node_modules/react'),
+            },
+        },
+        node: {
+            __dirname: true,
+            fs: 'empty'
+        }
+    }
 }
