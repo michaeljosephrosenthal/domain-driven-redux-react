@@ -1,10 +1,16 @@
 var path = require('path')
 var webpack = require('webpack')
-module.exports = function({title, htmlTemplate}){
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+var HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+
+module.exports = function({title='Bufflehead App'}){
     var htmlPlugin = new HtmlWebpackPlugin({
-        title: title || 'Bufflehead App',
-        filename: 'dist/index.html',
-        template: htmlTemplate || path.join(__dirname, 'template.html')
+        alwaysWriteToDisk: true,
+        template: 'node_modules/html-webpack-template/index.ejs',
+        appMountId: 'app',
+        title: title,
+        filename: 'index.html',
+        inject: false,
     })
     return {
         ...($ES.ENV != 'PRODUCTION' ? {devtool:  'source-map'} : {}),
@@ -25,13 +31,15 @@ module.exports = function({title, htmlTemplate}){
             new webpack.optimize.OccurenceOrderPlugin(),
             new webpack.HotModuleReplacementPlugin(),
             new webpack.NoErrorsPlugin(),
-            htmlPlugin
+            htmlPlugin,
+            new HtmlWebpackHarddiskPlugin()
         ] : [
             new webpack.DefinePlugin({ $ES: { CONTEXT: JSON.stringify('BROWSER'), ENV: JSON.stringify($ES.ENV)} }),
             new webpack.DefinePlugin({"process.env": {NODE_ENV: '"production"'}}),
             new webpack.optimize.DedupePlugin(),
             new webpack.optimize.OccurenceOrderPlugin(),
-            htmlPlugin
+            htmlPlugin,
+            new HtmlWebpackHarddiskPlugin()
             //new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})
         ],
         resolveLoader: {

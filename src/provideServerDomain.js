@@ -3,12 +3,23 @@ import path from 'path'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import express from 'express'
-import config from './webpack-config'
+import configBuilder from './webpack-config'
 import { Domain } from 'strictduck-domain-driven-fullstack'
 import { reactiveClient as ddReactiveClient } from 'strictduck-domain-driven-fullstack'
 
-export default function serverDomain(){
+export default function serverDomain(settings = {}){
+    const config = configBuilder(settings)
     const compiler = webpack(config)
+    function returnIndex(req, res, next){
+        compiler.outputFileSystem.readFile('index.html', function(err, result){
+            if (err) {
+                return next(err);
+            }
+            res.set('content-type','text/html');
+            res.send(result);
+            res.end();
+        })
+    }
     if($ES.ENV == 'PRODUCTION'){
         compiler.run((err, stats) => {
             if(err) console.log('err', err);
