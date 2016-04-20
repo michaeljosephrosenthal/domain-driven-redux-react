@@ -3,7 +3,7 @@ var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 
-module.exports = function({title='Bufflehead App'}){
+module.exports = function({title='Bufflehead App', ...settings}){
     var htmlPlugin = new HtmlWebpackPlugin({
         alwaysWriteToDisk: true,
         template: 'node_modules/html-webpack-template/index.ejs',
@@ -11,6 +11,7 @@ module.exports = function({title='Bufflehead App'}){
         title: title,
         filename: 'index.html',
         inject: false,
+        window: { settings }
     })
     return {
         ...($ES.ENV != 'PRODUCTION' ? {devtool:  'source-map'} : {}),

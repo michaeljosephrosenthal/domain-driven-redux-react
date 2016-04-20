@@ -5,12 +5,12 @@ import createRouter from './createRouter'
 import domainRouteGenerator from './domainRouteGenerator'
 import expandReduxDomains from './expandReduxDomains'
 
-const provider = ($ES.CONTEXT == 'NODE' ? require('./provideServerDomain') : require('./render')).default;
+const provider = ($ES.CONTEXT == 'NODE' ? require('./provideServerDomain') : require('./render')).default
 
 export default ddReactiveClient.implement({
     name: 'DomainDrivenReduxReactClient',
     constructor({
-        Domains: domains,
+        Domains: {settings, ...domains},
         elementId = 'app',
         DomainDrivenClientStore: Store = reduxStore,
         DomainDrivenStorePersistencePlugin: persister,
@@ -34,10 +34,11 @@ export default ddReactiveClient.implement({
 
         client.store = new Store({ domains, routes: client.routes, middlewareGenerators })
         client.router = createRouter(client.store, client.routes)
+        client.settings = ($ES.CONTEXT == 'NODE' ? settings.client : settings)
 
         return [client]
     },
     provider(){
-        return provider.bind(this)()
+        return provider.bind(this)(this.settings)
     }
 })
