@@ -1,7 +1,7 @@
 {
   "name": "domain-driven-redux-react",
-  "version": "0.1.16",
-  "description": "drives a redux/react domain driven client",
+  "version": "0.1.0",
+  "description": "Implementation of a reactiveClient strictduck using redux and react",
   "main": "dist/index.js",
   "scripts": {
     "dist": "polypacker --preset FULLSTACK_COMPONENT  --babelPreset react",
@@ -9,13 +9,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/michaeljosephrosenthal/redux-react-domain-driver.git"
+    "url": "git+https://github.com/michaeljosephrosenthal/domain-driven-redux-react.git"
   },
-  "keywords": [
-    "react",
-    "redux",
-    "frontend"
-  ],
   "author": "Michael Joseph Rosenthal",
   "license": "Apache-2.0",
   "engines": {
@@ -30,6 +25,7 @@
     "html-loader": "^0.4.3",
     "html-webpack-harddisk-plugin": "0.0.2",
     "html-webpack-plugin": "^2.16.0",
+    "html-webpack-template": "^4.0.0",
     "json-loader": "0.5.4",
     "less": "2.6.0",
     "less-loader": "2.2.2",
@@ -58,15 +54,11 @@
     "webpack-hot-middleware": "^2.7.1",
     "webpack-require": "0.0.16"
   },
-  "peerDependencies": {
-    "babel-core": "6.5.1"
-  },
   "bugs": {
-    "url": "https://github.com/michaeljosephrosenthal/redux-react-domain-driver/issues"
+    "url": "https://github.com/michaeljosephrosenthal/domain-driven-redux-react/issues"
   },
-  "homepage": "https://github.com/michaeljosephrosenthal/redux-react-domain-driver#readme",
+  "homepage": "https://github.com/michaeljosephrosenthal/domain-driven-redux-react#readme",
   "devDependencies": {
-    "html-webpack-template": "^4.0.0",
-    "polypacker": "github:michaeljosephrosenthal/polypacker"
+    "polypacker": "0.1.0"
   }
 }
