@@ -16,6 +16,14 @@ module.exports = function({title='Bufflehead App', ...settings}){
     return {
         ...($ES.ENV != 'PRODUCTION' ? {devtool:  'source-map'} : {}),
         context: process.cwd(),
+        externals: [
+            nodeExternals(),
+            function(context, request, callback) {
+                if(/^polypack!/.test(request))
+                    return callback(null, request.substr(9) + '/dist/for/' + compound_version);
+                callback();
+            },
+        ],
         debug: ($ES.ENV != 'PRODUCTION'),
         target: 'web',
         entry: ($ES.ENV != 'PRODUCTION') ? [
@@ -44,18 +52,12 @@ module.exports = function({title='Bufflehead App', ...settings}){
             //new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})
         ],
         resolveLoader: {
-            fallback: path.join(process.cwd(), "node_modules") ,
-            moduleDirectories: ["node_modules", "domain-driven-redux-react/node_modules"],
-            alias: { polypack: 'callback?polypack' }
+            moduleDirectories: ["node_modules", "polypacker/node_modules"],
+            root: path.join(__dirname, "node_modules")
         },
         callbackLoader: {
-            polypack: function(mod) {
-                var compound_version = 'browser_' + $ES.ENV.toLowerCase()
-                if(mod){
-                    return 'require("' + mod + '/dist/for/' + compound_version + '") //polypacked secondhand'
-                } else {
-                    return 'require("./for/' + compound_version + '") //polypacked by dist'
-                }
+            polypack: function() {
+                return 'require("./for/' + compound_version + '") //polypacked by dist'
             }
         },
         module: {
@@ -95,7 +97,7 @@ module.exports = function({title='Bufflehead App', ...settings}){
                 "web_modules"
             ],
             extensions: ["", ".json", ".js", ".jsx"],
-            fallback: path.join(process.cwd(), "node_modules"),
+            fallback: path.join(__dirname, "node_modules"),
             alias: {
                 react: path.join(process.cwd(), './node_modules/react'),
             },

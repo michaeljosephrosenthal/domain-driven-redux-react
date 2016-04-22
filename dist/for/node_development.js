@@ -787,7 +787,7 @@ module.exports =
 /* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
@@ -815,6 +815,10 @@ module.exports =
 	    });
 	    return _extends({},  true ? { devtool: 'source-map' } : {}, {
 	        context: process.cwd(),
+	        externals: [nodeExternals(), function (context, request, callback) {
+	            if (/^polypack!/.test(request)) return callback(null, request.substr(9) + '/dist/for/' + compound_version);
+	            callback();
+	        }],
 	        debug: ("DEVELOPMENT") != 'PRODUCTION',
 	        target: 'web',
 	        entry:  true ? ['webpack-hot-middleware/client', './src/index'] : ['./src/index'],
@@ -827,18 +831,12 @@ module.exports =
 	        //new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})
 	        ],
 	        resolveLoader: {
-	            fallback: path.join(process.cwd(), "node_modules"),
-	            moduleDirectories: ["node_modules", "domain-driven-redux-react/node_modules"],
-	            alias: { polypack: 'callback?polypack' }
+	            moduleDirectories: ["node_modules", "polypacker/node_modules"],
+	            root: path.join(__dirname, "node_modules")
 	        },
 	        callbackLoader: {
-	            polypack: function polypack(mod) {
-	                var compound_version = 'browser_' + ("DEVELOPMENT").toLowerCase();
-	                if (mod) {
-	                    return 'require("' + mod + '/dist/for/' + compound_version + '") //polypacked secondhand';
-	                } else {
-	                    return 'require("./for/' + compound_version + '") //polypacked by dist';
-	                }
+	            polypack: function polypack() {
+	                return 'require("./for/' + compound_version + '") //polypacked by dist';
 	            }
 	        },
 	        module: {
@@ -872,7 +870,7 @@ module.exports =
 	        resolve: {
 	            modulesDirectories: ["src", "node_modules", "web_modules"],
 	            extensions: ["", ".json", ".js", ".jsx"],
-	            fallback: path.join(process.cwd(), "node_modules"),
+	            fallback: path.join(__dirname, "node_modules"),
 	            alias: {
 	                react: path.join(process.cwd(), './node_modules/react')
 	            }
@@ -883,6 +881,7 @@ module.exports =
 	        }
 	    });
 	};
+	/* WEBPACK VAR INJECTION */}.call(exports, "src"))
 
 /***/ },
 /* 23 */
