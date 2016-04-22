@@ -139,6 +139,7 @@ module.exports =
 	
 	var _provider = ( true ? __webpack_require__(20) : require('./render')).default;
 	
+	console.log(_strictduckDomainDrivenFullstack.reactiveClient);
 	exports.default = _strictduckDomainDrivenFullstack.reactiveClient.implement({
 	    name: 'DomainDrivenReduxReactClient',
 	    constructor: function constructor(_ref) {
@@ -806,7 +807,7 @@ module.exports =
 	
 	    var htmlPlugin = new HtmlWebpackPlugin({
 	        alwaysWriteToDisk: true,
-	        template: 'node_modules/html-webpack-template/index.ejs',
+	        template: 'node_modules/domain-driven-redux-react/html-webpack-template/index.ejs',
 	        appMountId: 'app',
 	        title: title,
 	        filename: 'index.html',
@@ -828,6 +829,7 @@ module.exports =
 	        ],
 	        resolveLoader: {
 	            fallback: path.join(process.cwd(), "node_modules"),
+	            moduleDirectories: ["node_modules", "domain-driven-redux-react/node_modules"],
 	            alias: { polypack: 'callback?polypack' }
 	        },
 	        callbackLoader: {
@@ -853,7 +855,7 @@ module.exports =
 	            }, {
 	                test: /\.less$/, loader: 'style!css!less'
 	            }, {
-	                test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&' + "includePaths[]=" + path.resolve(process.cwd(), "./node_modules")
+	                test: /\.scss$/, loader: 'style!css!sass?outputStyle=expanded&includePaths[]=' + path.resolve(process.cwd(), "./node_modules")
 	            }, {
 	                test: /\.woff(2)?(\?.+)?$/, loader: "url?limit=10000&mimetype=application/font-woff"
 	            }, {

@@ -6,7 +6,7 @@ var HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 module.exports = function({title='Bufflehead App', ...settings}){
     var htmlPlugin = new HtmlWebpackPlugin({
         alwaysWriteToDisk: true,
-        template: 'node_modules/html-webpack-template/index.ejs',
+        template: 'node_modules/domain-driven-redux-react/html-webpack-template/index.ejs',
         appMountId: 'app',
         title: title,
         filename: 'index.html',
@@ -45,6 +45,7 @@ module.exports = function({title='Bufflehead App', ...settings}){
         ],
         resolveLoader: {
             fallback: path.join(process.cwd(), "node_modules") ,
+            moduleDirectories: ["node_modules", "domain-driven-redux-react/node_modules"],
             alias: { polypack: 'callback?polypack' }
         },
         callbackLoader: {
@@ -71,7 +72,7 @@ module.exports = function({title='Bufflehead App', ...settings}){
             }, {
                 test: /\.less$/, loader: 'style!css!less'
             }, {
-                test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&' + "includePaths[]=" + (path.resolve(process.cwd(), "./node_modules"))
+                test: /\.scss$/, loader: 'style!css!sass?outputStyle=expanded&includePaths[]=' + (path.resolve(process.cwd(), "./node_modules"))
             }, {
                 test: /\.woff(2)?(\?.+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" 
             }, {
