@@ -139,7 +139,6 @@ module.exports =
 	
 	var _provider = ( true ? __webpack_require__(20) : require('./render')).default;
 	
-	console.log(_strictduckDomainDrivenFullstack.reactiveClient);
 	exports.default = _strictduckDomainDrivenFullstack.reactiveClient.implement({
 	    name: 'DomainDrivenReduxReactClient',
 	    constructor: function constructor(_ref) {
