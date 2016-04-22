@@ -1,2 +1,930 @@
-require("source-map-support").install(),module.exports=function(e){function t(n){if(r[n])return r[n].exports;var o=r[n]={exports:{},id:n,loaded:!1};return e[n].call(o.exports,o,o.exports,t),o.loaded=!0,o.exports}var r={};return t.m=e,t.c=r,t.p="",t(0)}([function(e,t,r){e.exports=r(19)},function(e,t){e.exports=require("redux")},function(e,t){e.exports=require("redux-router")},function(e,t){e.exports=require("strictduck-domain-driven-fullstack")},function(e,t){e.exports=require("path")},function(e,t){e.exports=require("react")},function(e,t){e.exports=require("react-redux")},function(e,t){e.exports=require("strictduck")},function(e,t){e.exports=require("tcomb")},function(e,t){e.exports=require("webpack")},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function o(e,t){var r={};for(var n in e)t.indexOf(n)>=0||Object.prototype.hasOwnProperty.call(e,n)&&(r[n]=e[n]);return r}Object.defineProperty(t,"__esModule",{value:!0});var u=(r(7),r(3)),i=r(21),a=n(i),c=r(15),s=n(c),l=r(17),d=n(l),f=r(18),p=n(f),m=r(20)["default"];t["default"]=u.reactiveClient.implement({name:"DomainDrivenReduxReactClient",constructor:function(e){var t=e.Domains,r=t.settings,n=o(t,["settings"]),u=e.elementId,i=void 0===u?"app":u,c=e.DomainDrivenClientStore,l=void 0===c?a["default"]:c,f=e.DomainDrivenStorePersistencePlugin,m=e.routes,y=e.middlewareGenerators,v=void 0===y?[]:y,b=e.client,h=void 0===b?{}:b;return f instanceof Error||v.push(function(e){return f.middlewareGenerator({db:f.db,domains:e})}),l instanceof Error&&(l=a["default"]),n=(0,p["default"])(n),Object.assign(h,{routes:m||h.routes||(0,d["default"])(n),elementId:i}),f&&f.authenticateRoutes&&(h.routes=f.authenticateRoutes(h.routes)),h.store=new l({domains:n,routes:h.routes,middlewareGenerators:v}),h.router=(0,s["default"])(h.store,h.routes),h.settings=r.client,[h]},provider:function(){return m.bind(this)(this.settings)}})},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function o(e){return(0,i["default"])(Object.keys(e).filter(function(t){return e[t].reducer}).reduce(function(t,r){return t[r]=e[r].reducer,t},{}))}Object.defineProperty(t,"__esModule",{value:!0}),t["default"]=o;var u=r(12),i=n(u)},function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e},o="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol?"symbol":typeof e};t["default"]=function(e){if("object"!==("undefined"==typeof e?"undefined":o(e)))throw"Reactuate reducers should be an object (and not a function)";return(0,u.combineReducers)(n({router:i.routerStateReducer},e))};var u=r(1),i=r(2)},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(t,"__esModule",{value:!0}),t["default"]=function(e,t){function r(){var e=arguments.length<=0||void 0===arguments[0]?o:arguments[0],t=arguments.length<=1||void 0===arguments[1]?!1:arguments[1],u=arguments.length<=2||void 0===arguments[2]?void 0:arguments[2],c=arguments.length<=3||void 0===arguments[3]?[n.displayName]:arguments[3];return r.is(e)?e:(e=n(e),"undefined"!=typeof u&&(u=i(u)),this instanceof r?(this.type=a,this.payload=e,t&&(this.error=!0),"undefined"!=typeof u&&(this.meta=u),void Object.freeze(this)):new r(e,t,u,c))}var n=arguments.length<=2||void 0===arguments[2]?u["default"].Any:arguments[2],o=arguments.length<=3||void 0===arguments[3]?void 0:arguments[3],i=arguments.length<=4||void 0===arguments[4]?u["default"].Any:arguments[4],a=e.withPrefix(t);return r.meta={kind:"actionCreator",payload:n,name:a,identity:!1},r.displayName="Action "+a+"("+n.displayName+")",r.actionCreator=!0,r.action=t,r.is=function(e){return e instanceof r},e.register("actions",t,r),r};var o=r(8),u=n(o)},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function o(e){if(Array.isArray(e)){for(var t=0,r=Array(e.length);t<e.length;t++)r[t]=e[t];return r}return Array.from(e)}Object.defineProperty(t,"__esModule",{value:!0}),t["default"]=function(e,t){for(var r=arguments.length,n=Array(r>2?r-2:0),u=2;r>u;u++)n[u-2]=arguments[u];var a=function(){var r=arguments.length<=0||void 0===arguments[0]?t:arguments[0],u=arguments[1],a=u;if("@@reactuate/action"===u.type){var c=e.get("actions")[e.withoutPrefix(u.payload.type)];i["default"].Nil.is(c)||(a=c(u.payload.payload,u.payload.error,u.payload.meta))}Object.freeze(r);var s=n.map(function(e){return"function"==typeof e&&"undefined"==typeof e.meta?function(t){return e(r,t)}:e});return i["default"].match.apply(i["default"],[a].concat(o(s),[i["default"].Any,function(){return r}]))};return e.reducer=a,a};var u=r(8),i=n(u)},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function o(e,t){return i["default"].createElement(c.Provider,{store:e},i["default"].createElement(a.ReduxRouter,null,t))}Object.defineProperty(t,"__esModule",{value:!0}),t["default"]=o;var u=r(5),i=n(u),a=r(2),c=r(6)},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function o(e){var t=e.name;return t.toLowerCase().replace(/_([a-z])/g,function(e){return e[1].toUpperCase()})}function u(e){var t=e.prefix,r=e.name;return"@@"+t+"/"+r}function i(e,t){return p.utils.nameObj({name:o({prefix:e,name:t}),object:function(r){return{type:u({prefix:e,name:t}),payload:r}}})}function a(e,t,r){return function(n,o){var i=o.type,a=o.payload;return i===u({prefix:e,name:t})?r(n,a):n}}function c(e,t){return function(){var r=arguments.length<=0||void 0===arguments[0]?e:arguments[0],n=arguments[1];return t.reduce(function(e,t){return t(e,n)},r)}}function s(e){var t=e.get("dataFlows"),r=e.prefix;return t&&Object.keys(t).length&&(Object.keys(t).forEach(function(t){e.register("actions",o({prefix:r,name:t}),i(r,t))}),e.reducer=c(e.initialState||[],Object.keys(t).map(function(e){return a(r,e,t[e])}))),e}function l(e){return Object.keys(e).reduce(function(t,r){return t[r]=l(e[r]),t},{})}Object.defineProperty(t,"__esModule",{value:!0}),t.unpackDataFlowsIntoDomain=s,t["default"]=l;var d=r(14),f=(n(d),r(13)),p=(n(f),r(7))},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function o(e,t){return Object.keys(e).map(function(t){return e[t]}).filter(function(e){return Object.keys(e.get(t)).length})}function u(e){return e.get("route").route||f["default"].createElement(p.Route,{path:"/",component:e.get("route").component})}function i(e){return o(e,"route").filter(function(e){return"/"==e.get("route").path}).map(u)[0]}function a(e){return o(e,"route").map(function(e){return e.get("route")}).filter(function(e){return e.isContainer})}function c(e){var t=e.route,r=e.domainRoutes,n=r.filter(function(e){return e.original==t.props.component})[0];return f["default"].cloneElement(t,n?{component:n.component,key:t.props.key||t.props.path||"/"}:{key:t.props.key||t.props.path||"/"},t.props.children?t.props.children.map(function(e){return c({route:e,domainRoutes:r})}):void 0)}function s(e,t){return c({route:e,domainRoutes:a(t)})}function l(e){return s(i(e),e)}Object.defineProperty(t,"__esModule",{value:!0}),t.swapRouteComponentForContainer=c,t["default"]=l;var d=r(5),f=n(d),p=r(27)},function(e,t,r){"use strict";function n(e,t,r){return t in e?Object.defineProperty(e,t,{value:r,enumerable:!0,configurable:!0,writable:!0}):e[t]=r,e}function o(e){return e.get("actions")&&Object.keys(e.get("actions")).length||(e=(0,l.unpackDataFlowsIntoDomain)(e)),(0,s.connect)(function(t){return n({},e.prefix,t[e.prefix])},function(t){return{actions:(0,c.bindActionCreators)(e.get("actions"),t)}})(e.get("route").component)}function u(e){return e.get("actions")&&Object.keys(e.get("actions")).length||(e=(0,l.unpackDataFlowsIntoDomain)(e)),e.register("route","original",e.get("route").component),e.register("route","component",o(e)),e.register("route","isContainer",!0),e}function i(e){var t=e.get("route"),r=t.component,n=t.isContainer;return r&&!n&&Object.keys(e.get("dataFlows")).length&&(e=u(e)),e}function a(e){return Object.keys(e).reduce(function(t,r){return t[r]=i(e[r]),t},{})}Object.defineProperty(t,"__esModule",{value:!0}),t.domainReduxConnector=o,t.connectDomainRoutes=u,t.expandReduxDomain=i,t["default"]=a;var c=r(1),s=r(6),l=r(16)},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(t,"__esModule",{value:!0}),t["default"]=void 0;var o=r(10),u=n(o);t["default"]=u["default"]},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function o(){var e=arguments.length<=0||void 0===arguments[0]?{}:arguments[0],t=(0,b["default"])(e),r=(0,a["default"])(t);return new h.Domain.implementation({name:"",middleware:[(0,d["default"])(r,{noInfo:!0,publicPath:t.output.publicPath}),(0,p["default"])(r),y["default"]["static"]("static")],routes:u({},{},{"*":{methods:["get"],handlers:[function(e,t,r){return t.sendFile(s["default"].join(process.cwd(),"dist/index.html"))}]}}),order:["*"]})}Object.defineProperty(t,"__esModule",{value:!0});var u=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e};t["default"]=o;var i=r(9),a=n(i),c=r(4),s=n(c),l=r(28),d=n(l),f=r(29),p=n(f),m=r(23),y=n(m),v=r(22),b=n(v),h=r(3)},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function o(e){if(Array.isArray(e)){for(var t=0,r=Array(e.length);t<e.length;t++)r[t]=e[t];return r}return Array.from(e)}function u(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function i(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function a(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(t,"__esModule",{value:!0});var c=r(1),s=r(2),l=r(3),d=r(11),f=n(d),p=r(24),m=function(e){function t(e){var r=e.domains,n=e.routes,a=e.store,l=void 0===a?c.createStore:a,d=e.defaultMiddlewareGenerators,m=void 0===d?[]:d,y=e.middlewareGenerators,v=void 0===y?[]:y;return u(this,t),i(this,Object.getPrototypeOf(t).call(this,(0,c.compose)(c.applyMiddleware.apply(void 0,o(m.map(function(e){return e(r)})).concat(o(v.map(function(e){return e(r)})))),(0,s.reduxReactRouter)({routes:n,createHistory:p}))(l)((0,f["default"])(r))))}return a(t,e),t}(l.clientStore["default"]);t["default"]=m},function(e,t,r){"use strict";function n(e,t){var r={};for(var n in e)t.indexOf(n)>=0||Object.prototype.hasOwnProperty.call(e,n)&&(r[n]=e[n]);return r}var o=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e},u=r(4),i=r(9),a=r(26),c=r(25);e.exports=function(e){var t=e.title,r=void 0===t?"Bufflehead App":t,s=n(e,["title"]),l=new a({alwaysWriteToDisk:!0,template:"node_modules/html-webpack-template/index.ejs",appMountId:"app",title:r,filename:"index.html",inject:!1,window:{settings:s}});return o({},{devtool:"source-map"},{context:process.cwd(),debug:!0,target:"web",entry:["webpack-hot-middleware/client","./src/index"],output:{path:u.join(process.cwd(),"dist"),filename:"bundle.js",publicPath:"/static/"},plugins:[new i.DefinePlugin({$ES:{CONTEXT:JSON.stringify("BROWSER"),ENV:JSON.stringify("DEVELOPMENT")}}),new i.optimize.OccurenceOrderPlugin,new i.HotModuleReplacementPlugin,new i.NoErrorsPlugin,l,new c],resolveLoader:{fallback:u.join(process.cwd(),"node_modules"),alias:{polypack:"callback?polypack"}},callbackLoader:{polypack:function(e){var t="browser_"+"DEVELOPMENT".toLowerCase();return e?'require("'+e+"/dist/for/"+t+'") //polypacked secondhand':'require("./for/'+t+'") //polypacked by dist'}},module:{loaders:[{test:/\.js$|\.jsx$/,loaders:["babel?presets[]=es2015&presets[]=stage-0&presets[]=react"],exclude:/node_modules/,include:[process.cwd()]},{test:/\.json$/,loader:"json"},{test:/\.css$/,loader:"style!css!postcss"},{test:/\.less$/,loader:"style!css!less"},{test:/\.scss$/,loader:"style-loader!css-loader!sass-loader?outputStyle=expanded&includePaths[]="+u.resolve(process.cwd(),"./node_modules")},{test:/\.woff(2)?(\?.+)?$/,loader:"url?limit=10000&mimetype=application/font-woff"},{test:/\.ttf(\?.+)?$/,loader:"url?limit=10000&mimetype=application/octet-stream"},{test:/\.eot(\?.+)?$/,loader:"file"},{test:/\.svg(\?.+)?$/,loader:"url?limit=10000&mimetype=image/svg+xml"},{test:/\.png$/,loader:"url-loader?limit=100000"},{test:/\.jpg$/,loader:"file-loader"}]},resolve:{modulesDirectories:["src","node_modules","web_modules"],extensions:["",".json",".js",".jsx"],fallback:u.join(process.cwd(),"node_modules"),alias:{react:u.join(process.cwd(),"./node_modules/react")}},node:{__dirname:!0,fs:"empty"}})}},function(e,t){e.exports=require("express")},function(e,t){e.exports=require("history/lib/createMemoryHistory")},function(e,t){e.exports=require("html-webpack-harddisk-plugin")},function(e,t){e.exports=require("html-webpack-plugin")},function(e,t){e.exports=require("react-router")},function(e,t){e.exports=require("webpack-dev-middleware")},function(e,t){e.exports=require("webpack-hot-middleware")}]);
+require("source-map-support").install();
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+/******/
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(19);
+
+
+/***/ },
+/* 1 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux");
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-router");
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	module.exports = require("strictduck-domain-driven-fullstack");
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	module.exports = require("path");
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	module.exports = require("react");
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	module.exports = require("react-redux");
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = require("strictduck");
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	module.exports = require("tcomb");
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	module.exports = require("webpack");
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _strictduck = __webpack_require__(7);
+	
+	var _strictduckDomainDrivenFullstack = __webpack_require__(3);
+	
+	var _store = __webpack_require__(21);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _createRouter = __webpack_require__(15);
+	
+	var _createRouter2 = _interopRequireDefault(_createRouter);
+	
+	var _domainRouteGenerator = __webpack_require__(17);
+	
+	var _domainRouteGenerator2 = _interopRequireDefault(_domainRouteGenerator);
+	
+	var _expandReduxDomains = __webpack_require__(18);
+	
+	var _expandReduxDomains2 = _interopRequireDefault(_expandReduxDomains);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	var _provider = ( true ? __webpack_require__(20) : require('./render')).default;
+	
+	exports.default = _strictduckDomainDrivenFullstack.reactiveClient.implement({
+	    name: 'DomainDrivenReduxReactClient',
+	    constructor: function constructor(_ref) {
+	        var _ref$Domains = _ref.Domains;
+	        var settings = _ref$Domains.settings;
+	
+	        var domains = _objectWithoutProperties(_ref$Domains, ['settings']);
+	
+	        var _ref$elementId = _ref.elementId;
+	        var elementId = _ref$elementId === undefined ? 'app' : _ref$elementId;
+	        var _ref$DomainDrivenClie = _ref.DomainDrivenClientStore;
+	        var Store = _ref$DomainDrivenClie === undefined ? _store2.default : _ref$DomainDrivenClie;
+	        var persister = _ref.DomainDrivenStorePersistencePlugin;
+	        var routes = _ref.routes;
+	        var _ref$middlewareGenera = _ref.middlewareGenerators;
+	        var middlewareGenerators = _ref$middlewareGenera === undefined ? [] : _ref$middlewareGenera;
+	        var _ref$client = _ref.client;
+	        var client = _ref$client === undefined ? {} : _ref$client;
+	
+	        if (!(persister instanceof Error)) middlewareGenerators.push(function (domains) {
+	            return persister.middlewareGenerator({ db: persister.db, domains: domains });
+	        });
+	
+	        if (Store instanceof Error) Store = _store2.default;
+	
+	        domains = (0, _expandReduxDomains2.default)(domains);
+	
+	        Object.assign(client, {
+	            routes: routes || client.routes || (0, _domainRouteGenerator2.default)(domains),
+	            elementId: elementId
+	        });
+	        if (persister && persister.authenticateRoutes) client.routes = persister.authenticateRoutes(client.routes);
+	
+	        client.store = new Store({ domains: domains, routes: client.routes, middlewareGenerators: middlewareGenerators });
+	        client.router = (0, _createRouter2.default)(client.store, client.routes);
+	        client.settings =  true ? settings.client : settings;
+	
+	        return [client];
+	    },
+	    provider: function provider() {
+	        return _provider.bind(this)(this.settings);
+	    }
+	});
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = combineAllDomainReducers;
+	
+	var _combineReducers = __webpack_require__(12);
+	
+	var _combineReducers2 = _interopRequireDefault(_combineReducers);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function combineAllDomainReducers(domains) {
+	    return (0, _combineReducers2.default)(Object.keys(domains).filter(function (key) {
+	        return domains[key].reducer;
+	    }).reduce(function (map, key) {
+	        map[key] = domains[key].reducer;
+	        return map;
+	    }, {}));
+	}
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
+	exports.default = function (reducers) {
+	  if ((typeof reducers === 'undefined' ? 'undefined' : _typeof(reducers)) !== 'object') {
+	    throw "Reactuate reducers should be an object (and not a function)";
+	  }
+	  return (0, _redux.combineReducers)(_extends({ router: _reduxRouter.routerStateReducer }, reducers));
+	};
+	
+	var _redux = __webpack_require__(1);
+	
+	var _reduxRouter = __webpack_require__(2);
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function (domain, action) {
+	  var payload = arguments.length <= 2 || arguments[2] === undefined ? _tcomb2.default.Any : arguments[2];
+	  var defaultValue = arguments.length <= 3 || arguments[3] === undefined ? undefined : arguments[3];
+	  var meta = arguments.length <= 4 || arguments[4] === undefined ? _tcomb2.default.Any : arguments[4];
+	
+	  var actionString = domain.withPrefix(action);
+	  function ActionCreator() {
+	    var value = arguments.length <= 0 || arguments[0] === undefined ? defaultValue : arguments[0];
+	    var error = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
+	    var metaValue = arguments.length <= 2 || arguments[2] === undefined ? undefined : arguments[2];
+	    var path = arguments.length <= 3 || arguments[3] === undefined ? [payload.displayName] : arguments[3];
+	
+	
+	    if (ActionCreator.is(value)) {
+	      return value;
+	    }
+	
+	    value = payload(value);
+	
+	    if (typeof metaValue !== 'undefined') {
+	      metaValue = meta(metaValue);
+	    }
+	
+	    if (!(this instanceof ActionCreator)) {
+	      return new ActionCreator(value, error, metaValue, path);
+	    }
+	
+	    this.type = actionString;
+	    this.payload = value;
+	
+	    if (!!error) {
+	      this.error = true;
+	    }
+	
+	    if (typeof metaValue !== 'undefined') {
+	      this.meta = metaValue;
+	    }
+	
+	    if (true) {
+	      Object.freeze(this);
+	    }
+	  }
+	
+	  ActionCreator.meta = {
+	    kind: 'actionCreator',
+	    payload: payload,
+	    name: actionString,
+	    identity: false
+	  };
+	
+	  ActionCreator.displayName = 'Action ' + actionString + '(' + payload.displayName + ')';
+	  ActionCreator.actionCreator = true;
+	  ActionCreator.action = action;
+	
+	  ActionCreator.is = function (x) {
+	    return x instanceof ActionCreator;
+	  };
+	
+	  domain.register('actions', action, ActionCreator);
+	  return ActionCreator;
+	};
+	
+	var _tcomb = __webpack_require__(8);
+	
+	var _tcomb2 = _interopRequireDefault(_tcomb);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function (domain, initialState) {
+	  for (var _len = arguments.length, cases = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+	    cases[_key - 2] = arguments[_key];
+	  }
+	
+	  var reducer = function reducer() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
+	    var action = arguments[1];
+	
+	    var typedAction = action;
+	    if (action['type'] === '@@reactuate/action') {
+	      var actionCreator = domain.get('actions')[domain.withoutPrefix(action.payload.type)];
+	      if (!_tcomb2.default.Nil.is(actionCreator)) {
+	        typedAction = actionCreator(action.payload.payload, action.payload.error, action.payload.meta);
+	      }
+	    }
+	    Object.freeze(state);
+	    var stateCases = cases.map(function (f) {
+	      if (typeof f === 'function' && typeof f.meta === 'undefined') {
+	        return function (handler) {
+	          return f(state, handler);
+	        };
+	      } else {
+	        return f;
+	      }
+	    });
+	    return _tcomb2.default.match.apply(_tcomb2.default, [typedAction].concat(_toConsumableArray(stateCases), [_tcomb2.default.Any, function () {
+	      return state;
+	    }]));
+	  };
+	  domain.reducer = reducer;
+	  return reducer;
+	};
+	
+	var _tcomb = __webpack_require__(8);
+	
+	var _tcomb2 = _interopRequireDefault(_tcomb);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = createRouter;
+	
+	var _react = __webpack_require__(5);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reduxRouter = __webpack_require__(2);
+	
+	var _reactRedux = __webpack_require__(6);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function createRouter(store, routes) {
+	  return _react2.default.createElement(
+	    _reactRedux.Provider,
+	    { store: store },
+	    _react2.default.createElement(
+	      _reduxRouter.ReduxRouter,
+	      null,
+	      routes
+	    )
+	  );
+	}
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.unpackDataFlowsIntoDomain = unpackDataFlowsIntoDomain;
+	exports.default = unpackDataFlowsIntoDomains;
+	
+	var _createReducer = __webpack_require__(14);
+	
+	var _createReducer2 = _interopRequireDefault(_createReducer);
+	
+	var _createAction = __webpack_require__(13);
+	
+	var _createAction2 = _interopRequireDefault(_createAction);
+	
+	var _strictduck = __webpack_require__(7);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function nameActionCreator(_ref) {
+	    var name = _ref.name;
+	
+	    return name.toLowerCase().replace(/_([a-z])/g, function (g) {
+	        return g[1].toUpperCase();
+	    });
+	}
+	
+	function actionType(_ref2) {
+	    var prefix = _ref2.prefix;
+	    var name = _ref2.name;
+	
+	    return '@@' + prefix + '/' + name;
+	}
+	
+	function flowToAction(prefix, name) {
+	    return _strictduck.utils.nameObj({
+	        name: nameActionCreator({ prefix: prefix, name: name }),
+	        object: function object(payload) {
+	            return {
+	                type: actionType({ prefix: prefix, name: name }),
+	                payload: payload
+	            };
+	        }
+	    });
+	}
+	
+	function flowToReducer(prefix, name, reducerCase) {
+	    return function (state, _ref3) {
+	        var type = _ref3.type;
+	        var payload = _ref3.payload;
+	        return type === actionType({ prefix: prefix, name: name }) ? reducerCase(state, payload) : state;
+	    };
+	}
+	
+	function mergeReducers(initialState, reducers) {
+	    return function () {
+	        var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
+	        var action = arguments[1];
+	        return reducers.reduce(function (state, reducer) {
+	            return reducer(state, action);
+	        }, state);
+	    };
+	}
+	
+	function unpackDataFlowsIntoDomain(domain) {
+	    var dataFlows = domain.get('dataFlows');
+	    var prefix = domain.prefix;
+	    if (dataFlows && Object.keys(dataFlows).length) {
+	        Object.keys(dataFlows).forEach(function (name) {
+	            domain.register('actions', nameActionCreator({ prefix: prefix, name: name }), flowToAction(prefix, name));
+	        });
+	        domain.reducer = mergeReducers(domain.initialState || [], Object.keys(dataFlows).map(function (name) {
+	            return flowToReducer(prefix, name, dataFlows[name]);
+	        }));
+	    }
+	    return domain;
+	}
+	
+	function unpackDataFlowsIntoDomains(domains) {
+	    return Object.keys(domains).reduce(function (newDomains, k) {
+	        newDomains[k] = unpackDataFlowsIntoDomains(domains[k]);
+	        return newDomains;
+	    }, {});
+	}
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.swapRouteComponentForContainer = swapRouteComponentForContainer;
+	exports.default = domainRouteGenerator;
+	
+	var _react = __webpack_require__(5);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(27);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function filterDomainsForType(domains, type) {
+	    return Object.keys(domains).map(function (k) {
+	        return domains[k];
+	    }).filter(function (domain) {
+	        return Object.keys(domain.get(type)).length;
+	    });
+	}
+	
+	function route(domain) {
+	    return domain.get('route').route || _react2.default.createElement(_reactRouter.Route, { path: '/', component: domain.get('route').component });
+	}
+	
+	function extractRootRoute(domains) {
+	    return filterDomainsForType(domains, 'route').filter(function (domain) {
+	        return domain.get('route').path == '/';
+	    }).map(route)[0];
+	}
+	
+	function findContainerizedRoutes(domains) {
+	    return filterDomainsForType(domains, 'route').map(function (d) {
+	        return d.get('route');
+	    }).filter(function (route) {
+	        return route.isContainer;
+	    });
+	}
+	
+	function swapRouteComponentForContainer(_ref) {
+	    var route = _ref.route;
+	    var domainRoutes = _ref.domainRoutes;
+	
+	    var match = domainRoutes.filter(function (r) {
+	        return r.original == route.props.component;
+	    })[0];
+	    return _react2.default.cloneElement(route, match ? {
+	        component: match.component,
+	        key: route.props.key || route.props.path || '/'
+	    } : { key: route.props.key || route.props.path || '/' }, route.props.children ? route.props.children.map(function (route) {
+	        return swapRouteComponentForContainer({ route: route, domainRoutes: domainRoutes });
+	    }) : undefined);
+	}
+	
+	function swapContainersIntoRoutes(route, domains) {
+	    return swapRouteComponentForContainer({
+	        route: route,
+	        domainRoutes: findContainerizedRoutes(domains)
+	    });
+	}
+	
+	function domainRouteGenerator(domains) {
+	    return swapContainersIntoRoutes(extractRootRoute(domains), domains);
+	}
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.domainReduxConnector = domainReduxConnector;
+	exports.connectDomainRoutes = connectDomainRoutes;
+	exports.expandReduxDomain = expandReduxDomain;
+	exports.default = expandReduxDomains;
+	
+	var _redux = __webpack_require__(1);
+	
+	var _reactRedux = __webpack_require__(6);
+	
+	var _dataFlow = __webpack_require__(16);
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	function domainReduxConnector(domain) {
+	    if (!(domain.get('actions') && Object.keys(domain.get('actions')).length)) domain = (0, _dataFlow.unpackDataFlowsIntoDomain)(domain);
+	    return (0, _reactRedux.connect)(function (state) {
+	        return _defineProperty({}, domain.prefix, state[domain.prefix]);
+	    }, function (dispatch) {
+	        return {
+	            actions: (0, _redux.bindActionCreators)(domain.get('actions'), dispatch)
+	        };
+	    })(domain.get('route').component);
+	}
+	
+	function connectDomainRoutes(domain) {
+	    if (!(domain.get('actions') && Object.keys(domain.get('actions')).length)) {
+	        domain = (0, _dataFlow.unpackDataFlowsIntoDomain)(domain);
+	    }
+	    domain.register('route', 'original', domain.get('route').component);
+	    domain.register('route', 'component', domainReduxConnector(domain));
+	    domain.register('route', 'isContainer', true);
+	    return domain;
+	}
+	
+	function expandReduxDomain(domain) {
+	    var _domain$get = domain.get('route');
+	
+	    var component = _domain$get.component;
+	    var isContainer = _domain$get.isContainer;
+	
+	    if (component && !isContainer && Object.keys(domain.get('dataFlows')).length) {
+	        domain = connectDomainRoutes(domain);
+	    }
+	    return domain;
+	}
+	
+	function expandReduxDomains(domains) {
+	    return Object.keys(domains).reduce(function (newDomains, k) {
+	        newDomains[k] = expandReduxDomain(domains[k]);
+	        return newDomains;
+	    }, {});
+	}
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+	
+	var _client = __webpack_require__(10);
+	
+	var _client2 = _interopRequireDefault(_client);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = _client2.default;
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	exports.default = serverDomain;
+	
+	var _webpack = __webpack_require__(9);
+	
+	var _webpack2 = _interopRequireDefault(_webpack);
+	
+	var _path = __webpack_require__(4);
+	
+	var _path2 = _interopRequireDefault(_path);
+	
+	var _webpackDevMiddleware = __webpack_require__(28);
+	
+	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
+	
+	var _webpackHotMiddleware = __webpack_require__(29);
+	
+	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
+	
+	var _express = __webpack_require__(23);
+	
+	var _express2 = _interopRequireDefault(_express);
+	
+	var _webpackConfig = __webpack_require__(22);
+	
+	var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
+	
+	var _strictduckDomainDrivenFullstack = __webpack_require__(3);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function serverDomain() {
+	    var settings = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	
+	    var config = (0, _webpackConfig2.default)(settings);
+	    var compiler = (0, _webpack2.default)(config);
+	    function returnIndex(req, res, next) {
+	        compiler.outputFileSystem.readFile('index.html', function (err, result) {
+	            if (err) {
+	                return next(err);
+	            }
+	            res.set('content-type', 'text/html');
+	            res.send(result);
+	            res.end();
+	        });
+	    }
+	    if (false) {
+	        compiler.run(function (err, stats) {
+	            if (err) console.log('err', err);
+	        });
+	    }
+	    return new _strictduckDomainDrivenFullstack.Domain.implementation({
+	        name: '',
+	        middleware:  true ? [(0, _webpackDevMiddleware2.default)(compiler, { noInfo: true, publicPath: config.output.publicPath }), (0, _webpackHotMiddleware2.default)(compiler), _express2.default.static('static')] : [],
+	        routes: _extends({},  false ? {
+	            'static/bundle.js': {
+	                methods: ['get'],
+	                handlers: [function (req, res, next) {
+	                    return res.sendFile(_path2.default.join(process.cwd(), 'dist/bundle.js'));
+	                }]
+	            }
+	        } : {}, {
+	            '*': {
+	                methods: ['get'],
+	                handlers: [function (req, res, next) {
+	                    return res.sendFile(_path2.default.join(process.cwd(), 'dist/index.html'));
+	                }]
+	            }
+	        }),
+	        order:  false ? ['static/bundle.js', '*'] : ['*']
+	    });
+	}
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _redux = __webpack_require__(1);
+	
+	var _reduxRouter = __webpack_require__(2);
+	
+	var _strictduckDomainDrivenFullstack = __webpack_require__(3);
+	
+	var _combineAllDomainReducers = __webpack_require__(11);
+	
+	var _combineAllDomainReducers2 = _interopRequireDefault(_combineAllDomainReducers);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var createHistory =  false ? require('history').createHistory : __webpack_require__(24);
+	
+	var DomainDrivenReduxStore = function (_ddStore$default) {
+	    _inherits(DomainDrivenReduxStore, _ddStore$default);
+	
+	    function DomainDrivenReduxStore(_ref) {
+	        var domains = _ref.domains;
+	        var routes = _ref.routes;
+	        var _ref$store = _ref.store;
+	        var store = _ref$store === undefined ? _redux.createStore : _ref$store;
+	        var _ref$defaultMiddlewar = _ref.defaultMiddlewareGenerators;
+	        var defaultMiddlewareGenerators = _ref$defaultMiddlewar === undefined ? [] : _ref$defaultMiddlewar;
+	        var _ref$middlewareGenera = _ref.middlewareGenerators;
+	        var middlewareGenerators = _ref$middlewareGenera === undefined ? [] : _ref$middlewareGenera;
+	
+	        _classCallCheck(this, DomainDrivenReduxStore);
+	
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(DomainDrivenReduxStore).call(this, (0, _redux.compose)(_redux.applyMiddleware.apply(undefined, _toConsumableArray(defaultMiddlewareGenerators.map(function (generator) {
+	            return generator(domains);
+	        })).concat(_toConsumableArray(middlewareGenerators.map(function (generator) {
+	            return generator(domains);
+	        })))), (0, _reduxRouter.reduxReactRouter)({ routes: routes, createHistory: createHistory }))(store)((0, _combineAllDomainReducers2.default)(domains))));
+	    }
+	
+	    return DomainDrivenReduxStore;
+	}(_strictduckDomainDrivenFullstack.clientStore.default);
+	
+	exports.default = DomainDrivenReduxStore;
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	var path = __webpack_require__(4);
+	var webpack = __webpack_require__(9);
+	var HtmlWebpackPlugin = __webpack_require__(26);
+	var HtmlWebpackHarddiskPlugin = __webpack_require__(25);
+	
+	module.exports = function (_ref) {
+	    var _ref$title = _ref.title;
+	    var title = _ref$title === undefined ? 'Bufflehead App' : _ref$title;
+	
+	    var settings = _objectWithoutProperties(_ref, ['title']);
+	
+	    var htmlPlugin = new HtmlWebpackPlugin({
+	        alwaysWriteToDisk: true,
+	        template: 'node_modules/html-webpack-template/index.ejs',
+	        appMountId: 'app',
+	        title: title,
+	        filename: 'index.html',
+	        inject: false,
+	        window: { settings: settings }
+	    });
+	    return _extends({},  true ? { devtool: 'source-map' } : {}, {
+	        context: process.cwd(),
+	        debug: ("DEVELOPMENT") != 'PRODUCTION',
+	        target: 'web',
+	        entry:  true ? ['webpack-hot-middleware/client', './src/index'] : ['./src/index'],
+	        output: {
+	            path: path.join(process.cwd(), "dist"),
+	            filename: 'bundle.js',
+	            publicPath: '/static/'
+	        },
+	        plugins:  true ? [new webpack.DefinePlugin({ $ES: { CONTEXT: JSON.stringify('BROWSER'), ENV: JSON.stringify(("DEVELOPMENT")) } }), new webpack.optimize.OccurenceOrderPlugin(), new webpack.HotModuleReplacementPlugin(), new webpack.NoErrorsPlugin(), htmlPlugin, new HtmlWebpackHarddiskPlugin()] : [new webpack.DefinePlugin({ $ES: { CONTEXT: JSON.stringify('BROWSER'), ENV: JSON.stringify($ES.ENV) } }), new webpack.DefinePlugin({ "process.env": { NODE_ENV: '"production"' } }), new webpack.optimize.DedupePlugin(), new webpack.optimize.OccurenceOrderPlugin(), htmlPlugin, new HtmlWebpackHarddiskPlugin()
+	        //new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})
+	        ],
+	        resolveLoader: {
+	            fallback: path.join(process.cwd(), "node_modules"),
+	            alias: { polypack: 'callback?polypack' }
+	        },
+	        callbackLoader: {
+	            polypack: function polypack(mod) {
+	                var compound_version = 'browser_' + ("DEVELOPMENT").toLowerCase();
+	                if (mod) {
+	                    return 'require("' + mod + '/dist/for/' + compound_version + '") //polypacked secondhand';
+	                } else {
+	                    return 'require("./for/' + compound_version + '") //polypacked by dist';
+	                }
+	            }
+	        },
+	        module: {
+	            loaders: [{
+	                test: /\.js$|\.jsx$/,
+	                loaders: ["babel?presets[]=es2015&presets[]=stage-0&presets[]=react"],
+	                exclude: /node_modules/,
+	                include: [process.cwd()]
+	            }, {
+	                test: /\.json$/, loader: 'json'
+	            }, {
+	                test: /\.css$/, loader: 'style!css!postcss'
+	            }, {
+	                test: /\.less$/, loader: 'style!css!less'
+	            }, {
+	                test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&' + "includePaths[]=" + path.resolve(process.cwd(), "./node_modules")
+	            }, {
+	                test: /\.woff(2)?(\?.+)?$/, loader: "url?limit=10000&mimetype=application/font-woff"
+	            }, {
+	                test: /\.ttf(\?.+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream"
+	            }, {
+	                test: /\.eot(\?.+)?$/, loader: "file"
+	            }, {
+	                test: /\.svg(\?.+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml"
+	            }, {
+	                test: /\.png$/, loader: "url-loader?limit=100000"
+	            }, {
+	                test: /\.jpg$/, loader: "file-loader"
+	            }]
+	        },
+	        resolve: {
+	            modulesDirectories: ["src", "node_modules", "web_modules"],
+	            extensions: ["", ".json", ".js", ".jsx"],
+	            fallback: path.join(process.cwd(), "node_modules"),
+	            alias: {
+	                react: path.join(process.cwd(), './node_modules/react')
+	            }
+	        },
+	        node: {
+	            __dirname: true,
+	            fs: 'empty'
+	        }
+	    });
+	};
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	module.exports = require("express");
+
+/***/ },
+/* 24 */
+/***/ function(module, exports) {
+
+	module.exports = require("history/lib/createMemoryHistory");
+
+/***/ },
+/* 25 */
+/***/ function(module, exports) {
+
+	module.exports = require("html-webpack-harddisk-plugin");
+
+/***/ },
+/* 26 */
+/***/ function(module, exports) {
+
+	module.exports = require("html-webpack-plugin");
+
+/***/ },
+/* 27 */
+/***/ function(module, exports) {
+
+	module.exports = require("react-router");
+
+/***/ },
+/* 28 */
+/***/ function(module, exports) {
+
+	module.exports = require("webpack-dev-middleware");
+
+/***/ },
+/* 29 */
+/***/ function(module, exports) {
+
+	module.exports = require("webpack-hot-middleware");
+
+/***/ }
+/******/ ]);
 //# sourceMappingURL=node_development.js.map

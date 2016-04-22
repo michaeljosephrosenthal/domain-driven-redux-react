@@ -1,7 +1,7 @@
 {
   "name": "domain-driven-redux-react",
-  "version": "0.1.0",
-  "description": "Implementation of a reactiveClient strictduck using redux and react",
+  "version": "0.1.1",
+  "description": "Implementation of a domain-driven reactiveClient strictduck using redux and react",
   "main": "dist/index.js",
   "scripts": {
     "dist": "polypacker --preset FULLSTACK_COMPONENT  --babelPreset react",
@@ -17,6 +17,7 @@
     "node": ">=v5.4.1 <6.0"
   },
   "dependencies": {
+    "babel-loader": "^6.2.4",
     "css-loader": "0.23.1",
     "file-loader": "0.8.5",
     "flux-standard-action": "0.6.0",
@@ -42,8 +43,8 @@
     "redux-saga": "0.6.0",
     "redux-thunk": "1.0.3",
     "source-map-support": "^0.4.0",
-    "strictduck": "strictduck/strictduck",
-    "strictduck-domain-driven-fullstack": "strictduck/domain-driven-fullstack",
+    "strictduck": "0.1.1",
+    "strictduck-domain-driven-fullstack": "0.1.1",
     "style-loader": "0.13.0",
     "tcomb": "2.6.0",
     "tcomb-form-types": "1.1.0",
@@ -59,6 +60,6 @@
   },
   "homepage": "https://github.com/michaeljosephrosenthal/domain-driven-redux-react#readme",
   "devDependencies": {
-    "polypacker": "0.1.0"
+    "polypacker": "0.1.1"
   }
 }
