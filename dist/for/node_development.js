@@ -806,7 +806,7 @@ module.exports =
 	
 	    var htmlPlugin = new HtmlWebpackPlugin({
 	        alwaysWriteToDisk: true,
-	        template: /*require.resolve*/(27),
+	        template: __webpack_require__(27),
 	        appMountId: 'app',
 	        title: title,
 	        filename: 'index.html',
@@ -912,7 +912,7 @@ module.exports =
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = require("html-webpack-template/index.ejs");
+	module.exports = require("html-webpack-template");
 
 /***/ },
 /* 28 */

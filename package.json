@@ -27,7 +27,7 @@
     "html-loader": "^0.4.3",
     "html-webpack-harddisk-plugin": "0.0.2",
     "html-webpack-plugin": "^2.16.0",
-    "html-webpack-template": "^4.0.0",
+    "html-webpack-template": "bebraw/html-webpack-template#b8180ac5387ff9e900cb94f831c7db7f03aa0402",
     "json-loader": "^0.5.4",
     "less": "2.6.0",
     "less-loader": "2.2.2",
