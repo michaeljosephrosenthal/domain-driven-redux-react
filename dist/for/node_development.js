@@ -796,6 +796,7 @@ module.exports =
 	var path = __webpack_require__(4);
 	var webpack = __webpack_require__(9);
 	var HtmlWebpackPlugin = __webpack_require__(26);
+	var nodeExternals = __webpack_require__(31);
 	var HtmlWebpackHarddiskPlugin = __webpack_require__(25);
 	
 	module.exports = function (_ref) {
@@ -813,12 +814,9 @@ module.exports =
 	        inject: false,
 	        window: { settings: settings }
 	    });
+	    var compound_version = 'browser_' + ("DEVELOPMENT").toLowerCase();
 	    return _extends({},  true ? { devtool: 'source-map' } : {}, {
 	        context: process.cwd(),
-	        externals: [nodeExternals(), function (context, request, callback) {
-	            if (/^polypack!/.test(request)) return callback(null, request.substr(9) + '/dist/for/' + compound_version);
-	            callback();
-	        }],
 	        debug: ("DEVELOPMENT") != 'PRODUCTION',
 	        target: 'web',
 	        entry:  true ? ['webpack-hot-middleware/client', './src/index'] : ['./src/index'],
@@ -832,11 +830,17 @@ module.exports =
 	        ],
 	        resolveLoader: {
 	            moduleDirectories: ["node_modules", "polypacker/node_modules"],
-	            root: path.join(__dirname, "node_modules")
+	            root: path.join(__dirname, "node_modules"),
+	            alias: { polypack: 'callback?polypack' }
 	        },
 	        callbackLoader: {
-	            polypack: function polypack() {
-	                return 'require("./for/' + compound_version + '") //polypacked by dist';
+	            polypack: function polypack(mod) {
+	                var compound_version = 'browser_' + ("DEVELOPMENT").toLowerCase();
+	                if (mod) {
+	                    return 'require("' + mod + '/dist/for/' + compound_version + '") //polypacked secondhand';
+	                } else {
+	                    return 'require("./for/' + compound_version + '") //polypacked by dist';
+	                }
 	            }
 	        },
 	        module: {
@@ -848,7 +852,7 @@ module.exports =
 	            }, {
 	                test: /\.json$/, loader: 'json'
 	            }, {
-	                test: /\.css$/, loader: 'style!css!postcss'
+	                test: /\.css$/, loader: 'style!css'
 	            }, {
 	                test: /\.less$/, loader: 'style!css!less'
 	            }, {
@@ -930,6 +934,12 @@ module.exports =
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-hot-middleware");
+
+/***/ },
+/* 31 */
+/***/ function(module, exports) {
+
+	module.exports = require("webpack-node-externals");
 
 /***/ }
 /******/ ]);

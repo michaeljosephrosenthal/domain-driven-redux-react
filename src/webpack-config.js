@@ -1,6 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+var nodeExternals = require('webpack-node-externals')
 var HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 
 module.exports = function({title='Bufflehead App', ...settings}){
@@ -13,17 +14,10 @@ module.exports = function({title='Bufflehead App', ...settings}){
         inject: false,
         window: { settings }
     })
+    var compound_version =  'browser_' + $ES.ENV.toLowerCase()
     return {
         ...($ES.ENV != 'PRODUCTION' ? {devtool:  'source-map'} : {}),
         context: process.cwd(),
-        externals: [
-            nodeExternals(),
-            function(context, request, callback) {
-                if(/^polypack!/.test(request))
-                    return callback(null, request.substr(9) + '/dist/for/' + compound_version);
-                callback();
-            },
-        ],
         debug: ($ES.ENV != 'PRODUCTION'),
         target: 'web',
         entry: ($ES.ENV != 'PRODUCTION') ? [
@@ -53,12 +47,18 @@ module.exports = function({title='Bufflehead App', ...settings}){
         ],
         resolveLoader: {
             moduleDirectories: ["node_modules", "polypacker/node_modules"],
-            root: path.join(__dirname, "node_modules")
+            root: path.join(__dirname, "node_modules"),
+            alias: { polypack: 'callback?polypack' }
         },
         callbackLoader: {
-            polypack: function() {
-                return 'require("./for/' + compound_version + '") //polypacked by dist'
-            }
+            polypack: function(mod) {
+                var compound_version = 'browser_' + $ES.ENV.toLowerCase()
+                if(mod){
+                    return 'require("' + mod + '/dist/for/' + compound_version + '") //polypacked secondhand'
+                } else {
+                    return 'require("./for/' + compound_version + '") //polypacked by dist'
+                }
+            },
         },
         module: {
             loaders: [
@@ -70,7 +70,7 @@ module.exports = function({title='Bufflehead App', ...settings}){
             }, {
                 test: /\.json$/, loader: 'json'
             }, {
-                test: /\.css$/, loader: 'style!css!postcss'
+                test: /\.css$/, loader: 'style!css'
             }, {
                 test: /\.less$/, loader: 'style!css!less'
             }, {
