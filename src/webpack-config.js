@@ -6,7 +6,7 @@ var HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 module.exports = function({title='Bufflehead App', ...settings}){
     var htmlPlugin = new HtmlWebpackPlugin({
         alwaysWriteToDisk: true,
-        template: 'node_modules/domain-driven-redux-react/html-webpack-template/index.ejs',
+        template: require.resolve('html-webpack-template/index.ejs'),
         appMountId: 'app',
         title: title,
         filename: 'index.html',

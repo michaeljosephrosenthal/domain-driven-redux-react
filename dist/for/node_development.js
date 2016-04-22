@@ -503,7 +503,7 @@ module.exports =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(27);
+	var _reactRouter = __webpack_require__(28);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -662,11 +662,11 @@ module.exports =
 	
 	var _path2 = _interopRequireDefault(_path);
 	
-	var _webpackDevMiddleware = __webpack_require__(28);
+	var _webpackDevMiddleware = __webpack_require__(29);
 	
 	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 	
-	var _webpackHotMiddleware = __webpack_require__(29);
+	var _webpackHotMiddleware = __webpack_require__(30);
 	
 	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 	
@@ -806,7 +806,7 @@ module.exports =
 	
 	    var htmlPlugin = new HtmlWebpackPlugin({
 	        alwaysWriteToDisk: true,
-	        template: 'node_modules/domain-driven-redux-react/html-webpack-template/index.ejs',
+	        template: /*require.resolve*/(27),
 	        appMountId: 'app',
 	        title: title,
 	        filename: 'index.html',
@@ -912,16 +912,22 @@ module.exports =
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-router");
+	module.exports = require("html-webpack-template/index.ejs");
 
 /***/ },
 /* 28 */
 /***/ function(module, exports) {
 
-	module.exports = require("webpack-dev-middleware");
+	module.exports = require("react-router");
 
 /***/ },
 /* 29 */
+/***/ function(module, exports) {
+
+	module.exports = require("webpack-dev-middleware");
+
+/***/ },
+/* 30 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-hot-middleware");
