@@ -73,7 +73,7 @@ module.exports = function({title='Bufflehead App', ...settings}){
                 exclude: /node_modules/,
                 include: [process.cwd()],
                 query: {
-                    presets: ['es2015', 'react', 'stage-0'].map(preset => `babel-preset-${preset}`).map(require.resolve)
+                    presets: ['es2015', 'react', 'stage-0'].map(preset => `babel-preset-${preset}`)
                 },
             }, {
                 test: /\.json$/, loader: 'json'
