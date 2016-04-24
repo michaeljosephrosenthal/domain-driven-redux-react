@@ -18,6 +18,10 @@
   },
   "dependencies": {
     "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "6.3.13",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-stage-0": "6.3.13",
     "callback-loader": "^0.2.4",
     "css-loader": "^0.23.1",
     "file-loader": "^0.8.5",
@@ -56,6 +60,13 @@
   },
   "homepage": "https://github.com/michaeljosephrosenthal/domain-driven-redux-react#readme",
   "devDependencies": {
-    "polypacker": "0.1.1"
+    "polypacker": "0.1.2"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-0",
+      "react"
+    ]
   }
 }

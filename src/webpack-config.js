@@ -15,6 +15,10 @@ module.exports = function({title='Bufflehead App', ...settings}){
         window: { settings }
     })
     var compound_version =  'browser_' + $ES.ENV.toLowerCase()
+    var fallbacks = [
+        path.join(process.cwd(), "node_modules/polypacker/node_modules"),
+        path.join(process.cwd(), "node_modules/domain-driven-redux-react/node_modules")
+    ]
     return {
         ...($ES.ENV != 'PRODUCTION' ? {devtool:  'source-map'} : {}),
         context: process.cwd(),
@@ -46,8 +50,9 @@ module.exports = function({title='Bufflehead App', ...settings}){
             //new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})
         ],
         resolveLoader: {
-            moduleDirectories: ["node_modules", "polypacker/node_modules"],
-            root: path.join(__dirname, "node_modules"),
+            moduleDirectories: ["node_modules"],
+            root: path.join(process.cwd(), "node_modules"),
+            fallback: fallbacks,
             alias: { polypack: 'callback?polypack' }
         },
         callbackLoader: {
@@ -64,9 +69,12 @@ module.exports = function({title='Bufflehead App', ...settings}){
             loaders: [
                 {
                 test: /\.js$|\.jsx$/,
-                loaders: [ "babel?presets[]=es2015&presets[]=stage-0&presets[]=react" ],
+                loader: 'babel',
                 exclude: /node_modules/,
-                include: [process.cwd()]
+                include: [process.cwd()],
+                query: {
+                    presets: ['es2015', 'react', 'stage-0'].map(preset => `babel-preset-${preset}`).map(require.resolve)
+                },
             }, {
                 test: /\.json$/, loader: 'json'
             }, {
@@ -91,13 +99,10 @@ module.exports = function({title='Bufflehead App', ...settings}){
             ]
         },
         resolve: {
-            modulesDirectories: [
-                "src",
-                "node_modules",
-                "web_modules"
-            ],
+            modulesDirectories: [ "node_modules", "polypacker/node_modules" ],
             extensions: ["", ".json", ".js", ".jsx"],
-            fallback: path.join(__dirname, "node_modules"),
+            root: path.join(process.cwd(), "node_modules"),
+            fallback: fallbacks,
             alias: {
                 react: path.join(process.cwd(), './node_modules/react'),
             },
