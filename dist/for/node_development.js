@@ -817,7 +817,7 @@ module.exports =
 	    var compound_version = 'browser_' + ("DEVELOPMENT").toLowerCase();
 	    var fallbacks = [path.join(process.cwd(), "node_modules/polypacker/node_modules"), path.join(process.cwd(), "node_modules/domain-driven-redux-react/node_modules")];
 	    return _extends({},  true ? { devtool: 'source-map' } : {}, {
-	        context: console.log(process.cwd()) || process.cwd(),
+	        context: process.cwd(),
 	        debug: ("DEVELOPMENT") != 'PRODUCTION',
 	        target: 'web',
 	        entry:  true ? ['webpack-hot-middleware/client', './src/index'] : ['./src/index'],
