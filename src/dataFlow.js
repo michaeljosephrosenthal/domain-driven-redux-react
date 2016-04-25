@@ -52,7 +52,7 @@ export function unpackDataFlowsIntoDomain(domain){
 export default function unpackDataFlowsIntoDomains(domains){
     return Object.keys(domains)
         .reduce((newDomains, k) => {
-            newDomains[k] = unpackDataFlowsIntoDomains(domains[k]);
+            newDomains[k] = unpackDataFlowsIntoDomain(domains[k]);
             return newDomains
         }, {})
 }

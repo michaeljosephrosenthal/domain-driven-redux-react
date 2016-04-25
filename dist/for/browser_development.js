@@ -470,7 +470,7 @@ module.exports =
 	
 	function unpackDataFlowsIntoDomains(domains) {
 	    return Object.keys(domains).reduce(function (newDomains, k) {
-	        newDomains[k] = unpackDataFlowsIntoDomains(domains[k]);
+	        newDomains[k] = unpackDataFlowsIntoDomain(domains[k]);
 	        return newDomains;
 	    }, {});
 	}
@@ -521,19 +521,40 @@ module.exports =
 	    });
 	}
 	
-	function swapRouteComponentForContainer(_ref) {
-	    var route = _ref.route;
-	    var domainRoutes = _ref.domainRoutes;
+	function applyToChildren(_ref) {
+	    var children = _ref.children;
+	    var block = _ref.block;
 	
+	    if (children) {
+	        return Array.isArray(children) ? children.map(block) : block(children);
+	    } else {
+	        return children;
+	    }
+	}
+	
+	function swapChildrenComponentsForContainers(_ref2) {
+	    var children = _ref2.children;
+	    var domainRoutes = _ref2.domainRoutes;
+	
+	    return applyToChildren({
+	        children: children,
+	        block: function block(route) {
+	            return swapRouteComponentForContainer({ route: route, domainRoutes: domainRoutes });
+	        }
+	    });
+	}
+	function swapRouteComponentForContainer(_ref3) {
+	    var route = _ref3.route;
+	    var domainRoutes = _ref3.domainRoutes;
+	
+	    var children = route.props.children;
 	    var match = domainRoutes.filter(function (r) {
 	        return r.original == route.props.component;
 	    })[0];
 	    return _react2.default.cloneElement(route, match ? {
 	        component: match.component,
 	        key: route.props.key || route.props.path || '/'
-	    } : { key: route.props.key || route.props.path || '/' }, route.props.children ? route.props.children.map(function (route) {
-	        return swapRouteComponentForContainer({ route: route, domainRoutes: domainRoutes });
-	    }) : undefined);
+	    } : { key: route.props.key || route.props.path || '/' }, swapChildrenComponentsForContainers({ children: children, domainRoutes: domainRoutes }));
 	}
 	
 	function swapContainersIntoRoutes(route, domains) {
@@ -590,11 +611,25 @@ module.exports =
 	    return domain;
 	}
 	
+	function expandReactRouterRoute(_ref2) {
+	    var domain = _ref2.domain;
+	    var route = _ref2.route;
+	
+	    domain.register('route', 'component', route.props.component);
+	    return domain;
+	}
+	
 	function expandReduxDomain(domain) {
 	    var _domain$get = domain.get('route');
 	
-	    var component = _domain$get.component;
-	    var isContainer = _domain$get.isContainer;
+	    var route = _domain$get.route;
+	
+	    if (route) domain = expandReactRouterRoute({ domain: domain, route: route });
+	
+	    var _domain$get2 = domain.get('route');
+	
+	    var component = _domain$get2.component;
+	    var isContainer = _domain$get2.isContainer;
 	
 	    if (component && !isContainer && Object.keys(domain.get('dataFlows')).length) {
 	        domain = connectDomainRoutes(domain);

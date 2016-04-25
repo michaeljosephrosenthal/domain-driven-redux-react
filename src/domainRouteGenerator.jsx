@@ -23,7 +23,24 @@ function findContainerizedRoutes(domains){
         .filter(route => route.isContainer)
 }
 
+function applyToChildren({children, block}){
+    if(children){
+        return Array.isArray(children) ?
+            children.map(block) :
+            block(children)
+    } else {
+        return children
+    }
+}
+
+function swapChildrenComponentsForContainers({children, domainRoutes}){
+    return applyToChildren({
+        children,
+        block: route => swapRouteComponentForContainer({route, domainRoutes})
+    })
+}
 export function swapRouteComponentForContainer({route, domainRoutes}){
+    let children = route.props.children
     let match = domainRoutes.filter(r => r.original == route.props.component)[0]
     return React.cloneElement(
         route,
@@ -31,9 +48,7 @@ export function swapRouteComponentForContainer({route, domainRoutes}){
             component: match.component,
             key: route.props.key || route.props.path || '/'
         } : {key: route.props.key || route.props.path || '/'},
-        route.props.children ?
-            route.props.children.map(route => swapRouteComponentForContainer({route, domainRoutes})) :
-            undefined
+        swapChildrenComponentsForContainers({children, domainRoutes})
     )
 }
 
