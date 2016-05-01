@@ -76,21 +76,21 @@ module.exports = function({title='Bufflehead App', ...settings}){
                     presets: ['es2015', 'react', 'stage-0'].map(preset => `babel-preset-${preset}`)
                 },
             }, {
-                test: /\.json$/, loader: 'json'
+                test: /\.json$/, loader: 'json-loader'
             }, {
-                test: /\.css$/, loader: 'style!css'
+                test: /\.css$/, loader: 'style-loader!css-loader'
             }, {
-                test: /\.less$/, loader: 'style!css!less'
+                test: /\.less$/, loader: 'style-loader!css-loader!less-loader'
             }, {
-                test: /\.scss$/, loader: 'style!css!sass?outputStyle=expanded&includePaths[]=' + (path.resolve(process.cwd(), "./node_modules"))
+                test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&includePaths[]=' + (path.resolve(process.cwd(), "./node_modules"))
             }, {
-                test: /\.woff(2)?(\?.+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" 
+                test: /\.woff(2)?(\?.+)?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" 
             }, {
-                test: /\.ttf(\?.+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" 
+                test: /\.ttf(\?.+)?$/, loader: "url-loader?limit=10000&mimetype=application/octet-stream" 
             }, {
-                test: /\.eot(\?.+)?$/, loader: "file" 
+                test: /\.eot(\?.+)?$/, loader: "file-loader" 
             }, {
-                test: /\.svg(\?.+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml"
+                test: /\.svg(\?.+)?$/, loader: "url-loader?limit=10000&mimetype=image/svg+xml"
             }, {
                 test: /\.png$/, loader: "url-loader?limit=100000" 
             }, {
