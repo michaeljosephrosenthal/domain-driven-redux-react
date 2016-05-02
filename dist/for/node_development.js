@@ -46,38 +46,38 @@ module.exports =
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(19);
+	module.exports = __webpack_require__(20);
 
 
 /***/ },
 /* 1 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux");
+	module.exports = require("react");
 
 /***/ },
 /* 2 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-router");
+	module.exports = require("redux");
 
 /***/ },
 /* 3 */
 /***/ function(module, exports) {
 
-	module.exports = require("strictduck-domain-driven-fullstack");
+	module.exports = require("redux-router");
 
 /***/ },
 /* 4 */
 /***/ function(module, exports) {
 
-	module.exports = require("path");
+	module.exports = require("strictduck-domain-driven-fullstack");
 
 /***/ },
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = require("react");
+	module.exports = require("path");
 
 /***/ },
 /* 6 */
@@ -113,23 +113,100 @@ module.exports =
 	    value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var storeShape = _react.PropTypes.shape({
+	    subscribe: _react.PropTypes.func.isRequired,
+	    dispatch: _react.PropTypes.func.isRequired,
+	    getState: _react.PropTypes.func.isRequired
+	});
+	
+	var Provider = function (_Component) {
+	    _inherits(Provider, _Component);
+	
+	    _createClass(Provider, [{
+	        key: 'getChildContext',
+	        value: function getChildContext() {
+	            return { store: this.store };
+	        }
+	    }]);
+	
+	    function Provider(props, context) {
+	        _classCallCheck(this, Provider);
+	
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Provider).call(this, props, context));
+	
+	        _this.store = props.store;
+	        return _this;
+	    }
+	
+	    _createClass(Provider, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react.Children.only(this.props.children);
+	        }
+	    }]);
+	
+	    return Provider;
+	}(_react.Component);
+	
+	exports.default = Provider;
+	
+	
+	if (true) {
+	    Provider.prototype.componentWillReceiveProps = function (nextProps) {
+	        var store = this.store;
+	        var nextStore = nextProps.store;
+	
+	        if (store !== nextStore) {
+	            store.replaceReducer(nextStore.reducer);
+	        }
+	    };
+	}
+	
+	Provider.propTypes = {
+	    store: storeShape.isRequired,
+	    children: _react.PropTypes.element.isRequired
+	};
+	Provider.childContextTypes = {
+	    store: storeShape.isRequired
+	};
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
 	var _strictduck = __webpack_require__(7);
 	
-	var _strictduckDomainDrivenFullstack = __webpack_require__(3);
+	var _strictduckDomainDrivenFullstack = __webpack_require__(4);
 	
-	var _store = __webpack_require__(21);
+	var _store = __webpack_require__(22);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _createRouter = __webpack_require__(15);
+	var _createRouter = __webpack_require__(16);
 	
 	var _createRouter2 = _interopRequireDefault(_createRouter);
 	
-	var _domainRouteGenerator = __webpack_require__(17);
+	var _domainRouteGenerator = __webpack_require__(18);
 	
 	var _domainRouteGenerator2 = _interopRequireDefault(_domainRouteGenerator);
 	
-	var _expandReduxDomains = __webpack_require__(18);
+	var _expandReduxDomains = __webpack_require__(19);
 	
 	var _expandReduxDomains2 = _interopRequireDefault(_expandReduxDomains);
 	
@@ -137,7 +214,7 @@ module.exports =
 	
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 	
-	var _provider = ( true ? __webpack_require__(20) : require('./render')).default;
+	var _provider = ( true ? __webpack_require__(21) : require('./render')).default;
 	
 	exports.default = _strictduckDomainDrivenFullstack.reactiveClient.implement({
 	    name: 'DomainDrivenReduxReactClient',
@@ -184,7 +261,7 @@ module.exports =
 	});
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -194,7 +271,7 @@ module.exports =
 	});
 	exports.default = combineAllDomainReducers;
 	
-	var _combineReducers = __webpack_require__(12);
+	var _combineReducers = __webpack_require__(13);
 	
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 	
@@ -210,7 +287,7 @@ module.exports =
 	}
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -230,12 +307,12 @@ module.exports =
 	  return (0, _redux.combineReducers)(_extends({ router: _reduxRouter.routerStateReducer }, reducers));
 	};
 	
-	var _redux = __webpack_require__(1);
+	var _redux = __webpack_require__(2);
 	
-	var _reduxRouter = __webpack_require__(2);
+	var _reduxRouter = __webpack_require__(3);
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -313,7 +390,7 @@ module.exports =
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -365,7 +442,7 @@ module.exports =
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -375,19 +452,25 @@ module.exports =
 	});
 	exports.default = createRouter;
 	
-	var _react = __webpack_require__(5);
+	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reduxRouter = __webpack_require__(2);
+	var _reduxRouter = __webpack_require__(3);
 	
 	var _reactRedux = __webpack_require__(6);
 	
+	var _HotReloadingProvider = __webpack_require__(10);
+	
+	var _HotReloadingProvider2 = _interopRequireDefault(_HotReloadingProvider);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Provider =  false ? _reactRedux.Provider : _HotReloadingProvider2.default;
 	
 	function createRouter(store, routes) {
 	  return _react2.default.createElement(
-	    _reactRedux.Provider,
+	    Provider,
 	    { store: store },
 	    _react2.default.createElement(
 	      _reduxRouter.ReduxRouter,
@@ -398,7 +481,7 @@ module.exports =
 	}
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -409,11 +492,11 @@ module.exports =
 	exports.unpackDataFlowsIntoDomain = unpackDataFlowsIntoDomain;
 	exports.default = unpackDataFlowsIntoDomains;
 	
-	var _createReducer = __webpack_require__(14);
+	var _createReducer = __webpack_require__(15);
 	
 	var _createReducer2 = _interopRequireDefault(_createReducer);
 	
-	var _createAction = __webpack_require__(13);
+	var _createAction = __webpack_require__(14);
 	
 	var _createAction2 = _interopRequireDefault(_createAction);
 	
@@ -488,7 +571,7 @@ module.exports =
 	}
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -499,11 +582,11 @@ module.exports =
 	exports.swapRouteComponentForContainer = swapRouteComponentForContainer;
 	exports.default = domainRouteGenerator;
 	
-	var _react = __webpack_require__(5);
+	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(28);
+	var _reactRouter = __webpack_require__(29);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -581,7 +664,7 @@ module.exports =
 	}
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -594,11 +677,11 @@ module.exports =
 	exports.expandReduxDomain = expandReduxDomain;
 	exports.default = expandReduxDomains;
 	
-	var _redux = __webpack_require__(1);
+	var _redux = __webpack_require__(2);
 	
 	var _reactRedux = __webpack_require__(6);
 	
-	var _dataFlow = __webpack_require__(16);
+	var _dataFlow = __webpack_require__(17);
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
@@ -657,7 +740,7 @@ module.exports =
 	}
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -667,7 +750,7 @@ module.exports =
 	});
 	exports.default = undefined;
 	
-	var _client = __webpack_require__(10);
+	var _client = __webpack_require__(11);
 	
 	var _client2 = _interopRequireDefault(_client);
 	
@@ -676,7 +759,7 @@ module.exports =
 	exports.default = _client2.default;
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -693,27 +776,27 @@ module.exports =
 	
 	var _webpack2 = _interopRequireDefault(_webpack);
 	
-	var _path = __webpack_require__(4);
+	var _path = __webpack_require__(5);
 	
 	var _path2 = _interopRequireDefault(_path);
 	
-	var _webpackDevMiddleware = __webpack_require__(29);
+	var _webpackDevMiddleware = __webpack_require__(30);
 	
 	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 	
-	var _webpackHotMiddleware = __webpack_require__(30);
+	var _webpackHotMiddleware = __webpack_require__(31);
 	
 	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 	
-	var _express = __webpack_require__(23);
+	var _express = __webpack_require__(24);
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _webpackConfig = __webpack_require__(22);
+	var _webpackConfig = __webpack_require__(23);
 	
 	var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
 	
-	var _strictduckDomainDrivenFullstack = __webpack_require__(3);
+	var _strictduckDomainDrivenFullstack = __webpack_require__(4);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -760,7 +843,7 @@ module.exports =
 	}
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -769,13 +852,13 @@ module.exports =
 	    value: true
 	});
 	
-	var _redux = __webpack_require__(1);
+	var _redux = __webpack_require__(2);
 	
-	var _reduxRouter = __webpack_require__(2);
+	var _reduxRouter = __webpack_require__(3);
 	
-	var _strictduckDomainDrivenFullstack = __webpack_require__(3);
+	var _strictduckDomainDrivenFullstack = __webpack_require__(4);
 	
-	var _combineAllDomainReducers = __webpack_require__(11);
+	var _combineAllDomainReducers = __webpack_require__(12);
 	
 	var _combineAllDomainReducers2 = _interopRequireDefault(_combineAllDomainReducers);
 	
@@ -789,7 +872,7 @@ module.exports =
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var createHistory =  false ? require('history').createHistory : __webpack_require__(24);
+	var createHistory =  false ? require('history').createHistory : __webpack_require__(25);
 	
 	var DomainDrivenReduxStore = function (_ddStore$default) {
 	    _inherits(DomainDrivenReduxStore, _ddStore$default);
@@ -806,11 +889,16 @@ module.exports =
 	
 	        _classCallCheck(this, DomainDrivenReduxStore);
 	
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(DomainDrivenReduxStore).call(this, (0, _redux.compose)(_redux.applyMiddleware.apply(undefined, _toConsumableArray(defaultMiddlewareGenerators.map(function (generator) {
+	        var reducer = (0, _combineAllDomainReducers2.default)(domains);
+	
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DomainDrivenReduxStore).call(this, (0, _redux.compose)(_redux.applyMiddleware.apply(undefined, _toConsumableArray(defaultMiddlewareGenerators.map(function (generator) {
 	            return generator(domains);
 	        })).concat(_toConsumableArray(middlewareGenerators.map(function (generator) {
 	            return generator(domains);
-	        })))), (0, _reduxRouter.reduxReactRouter)({ routes: routes, createHistory: createHistory }))(store)((0, _combineAllDomainReducers2.default)(domains))));
+	        })))), (0, _reduxRouter.reduxReactRouter)({ routes: routes, createHistory: createHistory }))(store)(reducer)));
+	
+	        _this.reducer = reducer;
+	        return _this;
 	    }
 	
 	    return DomainDrivenReduxStore;
@@ -819,7 +907,7 @@ module.exports =
 	exports.default = DomainDrivenReduxStore;
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -828,11 +916,11 @@ module.exports =
 	
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 	
-	var path = __webpack_require__(4);
+	var path = __webpack_require__(5);
 	var webpack = __webpack_require__(9);
-	var HtmlWebpackPlugin = __webpack_require__(26);
-	var nodeExternals = __webpack_require__(31);
-	var HtmlWebpackHarddiskPlugin = __webpack_require__(25);
+	var HtmlWebpackPlugin = __webpack_require__(27);
+	var nodeExternals = __webpack_require__(32);
+	var HtmlWebpackHarddiskPlugin = __webpack_require__(26);
 	
 	module.exports = function (_ref) {
 	    var _ref$title = _ref.title;
@@ -842,7 +930,7 @@ module.exports =
 	
 	    var htmlPlugin = new HtmlWebpackPlugin({
 	        alwaysWriteToDisk: true,
-	        template: __webpack_require__(27),
+	        template: __webpack_require__(28),
 	        appMountId: 'app',
 	        title: title,
 	        filename: 'index.html',
@@ -887,7 +975,7 @@ module.exports =
 	                exclude: /node_modules/,
 	                include: [process.cwd()],
 	                query: {
-	                    presets: ['es2015', 'react', 'stage-0'].map(function (preset) {
+	                    presets: ['es2015', 'react', 'stage-0', 'react-hmre'].map(function (preset) {
 	                        return 'babel-preset-' + preset;
 	                    })
 	                }
@@ -930,55 +1018,55 @@ module.exports =
 	};
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 	module.exports = require("express");
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports) {
 
 	module.exports = require("history/lib/createMemoryHistory");
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports) {
 
 	module.exports = require("html-webpack-harddisk-plugin");
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports) {
 
 	module.exports = require("html-webpack-plugin");
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports) {
 
 	module.exports = require("html-webpack-template");
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-router");
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-dev-middleware");
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-hot-middleware");
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-node-externals");

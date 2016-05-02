@@ -14,6 +14,7 @@ export default class DomainDrivenReduxStore extends ddStore.default {
         defaultMiddlewareGenerators=[],
         middlewareGenerators=[]
     }){
+        let reducer = combineAllDomainReducers(domains)
         super(
             compose(
                 applyMiddleware(
@@ -25,8 +26,9 @@ export default class DomainDrivenReduxStore extends ddStore.default {
                     ),
                 ),
                 reduxReactRouter({routes, createHistory})
-            )(store)(combineAllDomainReducers(domains))
+            )(store)(reducer)
         )
+        this.reducer = reducer
     }
 
 }
