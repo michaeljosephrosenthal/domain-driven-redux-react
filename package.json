@@ -1,6 +1,6 @@
 {
   "name": "domain-driven-redux-react",
-  "version": "0.1.5",
+  "version": "0.1.6-alpha",
   "description": "Implementation of a domain-driven reactiveClient strictduck using redux and react",
   "main": "dist/index.js",
   "scripts": {
