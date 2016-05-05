@@ -1,4 +1,3 @@
-import { resolve } from 'strictduck'
 import { reactiveClient as ddReactiveClient, storePersistencePlugin } from 'strictduck-domain-driven-fullstack'
 import reduxStore from './store'
 import createRouter from './createRouter'
