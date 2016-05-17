@@ -1,4 +1,3 @@
-require("source-map-support").install();
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -83,19 +82,19 @@ module.exports =
 /* 6 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-redux");
+	module.exports = require("polypacker");
 
 /***/ },
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = require("tcomb");
+	module.exports = require("react-redux");
 
 /***/ },
 /* 8 */
 /***/ function(module, exports) {
 
-	module.exports = require("webpack");
+	module.exports = require("tcomb");
 
 /***/ },
 /* 9 */
@@ -155,7 +154,7 @@ module.exports =
 	exports.default = Provider;
 	
 	
-	if (true) {
+	if (process.env.NODE_ENV !== 'production') {
 	    Provider.prototype.componentWillReceiveProps = function (nextProps) {
 	        var store = this.store;
 	        var nextStore = nextProps.store;
@@ -351,7 +350,7 @@ module.exports =
 	      this.meta = metaValue;
 	    }
 	
-	    if (true) {
+	    if (process.env.NODE_ENV !== 'production') {
 	      Object.freeze(this);
 	    }
 	  }
@@ -375,7 +374,7 @@ module.exports =
 	  return ActionCreator;
 	};
 	
-	var _tcomb = __webpack_require__(7);
+	var _tcomb = __webpack_require__(8);
 	
 	var _tcomb2 = _interopRequireDefault(_tcomb);
 
@@ -425,7 +424,7 @@ module.exports =
 	  return reducer;
 	};
 	
-	var _tcomb = __webpack_require__(7);
+	var _tcomb = __webpack_require__(8);
 	
 	var _tcomb2 = _interopRequireDefault(_tcomb);
 
@@ -450,7 +449,7 @@ module.exports =
 	
 	var _reduxRouter = __webpack_require__(3);
 	
-	var _reactRedux = __webpack_require__(6);
+	var _reactRedux = __webpack_require__(7);
 	
 	var _HotReloadingProvider = __webpack_require__(9);
 	
@@ -634,6 +633,7 @@ module.exports =
 	    var route = _ref3.route;
 	    var domainRoutes = _ref3.domainRoutes;
 	
+	    console.log(route);
 	    var children = route.props.children;
 	    var match = domainRoutes.filter(function (r) {
 	        return r.original == route.props.component;
@@ -645,6 +645,7 @@ module.exports =
 	}
 	
 	function swapContainersIntoRoutes(route, domains) {
+	    console.log(route);
 	    return swapRouteComponentForContainer({
 	        route: route,
 	        domainRoutes: findContainerizedRoutes(domains)
@@ -671,7 +672,7 @@ module.exports =
 	
 	var _redux = __webpack_require__(2);
 	
-	var _reactRedux = __webpack_require__(6);
+	var _reactRedux = __webpack_require__(7);
 	
 	var _dataFlow = __webpack_require__(16);
 	
@@ -764,7 +765,7 @@ module.exports =
 	
 	exports.default = serverDomain;
 	
-	var _webpack = __webpack_require__(8);
+	var _webpack = __webpack_require__(30);
 	
 	var _webpack2 = _interopRequireDefault(_webpack);
 	
@@ -772,11 +773,11 @@ module.exports =
 	
 	var _path2 = _interopRequireDefault(_path);
 	
-	var _webpackDevMiddleware = __webpack_require__(30);
+	var _webpackDevMiddleware = __webpack_require__(31);
 	
 	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 	
-	var _webpackHotMiddleware = __webpack_require__(31);
+	var _webpackHotMiddleware = __webpack_require__(32);
 	
 	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 	
@@ -784,9 +785,11 @@ module.exports =
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _webpackConfig = __webpack_require__(22);
+	var _webpackBuilder = __webpack_require__(22);
 	
-	var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
+	var _webpackBuilder2 = _interopRequireDefault(_webpackBuilder);
+	
+	var _polypacker = __webpack_require__(6);
 	
 	var _strictduckDomainDrivenFullstack = __webpack_require__(4);
 	
@@ -795,7 +798,7 @@ module.exports =
 	function serverDomain() {
 	    var settings = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 	
-	    var config = (0, _webpackConfig2.default)(settings);
+	    var config = (0, _webpackBuilder2.default)(settings);
 	    var compiler = (0, _webpack2.default)(config);
 	    function returnIndex(req, res, next) {
 	        compiler.outputFileSystem.readFile('index.html', function (err, result) {
@@ -809,13 +812,17 @@ module.exports =
 	    }
 	    if (false) {
 	        compiler.run(function (err, stats) {
-	            if (err) console.log('err', err);
+	            return (0, _polypacker.logCompilation)(err, stats, { logLevel: 'VERBOSE', signature: 'client' });
 	        });
 	    }
 	    return new _strictduckDomainDrivenFullstack.Domain.implementation({
 	        name: '',
-	        middleware:  true ? [(0, _webpackDevMiddleware2.default)(compiler, { noInfo: true, publicPath: config.output.publicPath }), (0, _webpackHotMiddleware2.default)(compiler), _express2.default.static('static')] : [],
-	        routes: _extends({},  false ? {
+	        middleware:  true ? [(0, _webpackDevMiddleware2.default)(compiler, {
+	            noInfo: true,
+	            publicPath: config.output.publicPath,
+	            stats: { colors: true }
+	        }), (0, _webpackHotMiddleware2.default)(compiler), _express2.default.static('static')] : [],
+	        routes: _extends({},  true ? {
 	            'static/bundle.js': {
 	                methods: ['get'],
 	                handlers: [function (req, res, next) {
@@ -830,7 +837,7 @@ module.exports =
 	                }]
 	            }
 	        }),
-	        order:  false ? ['static/bundle.js', '*'] : ['*']
+	        order:  true ? ['static/bundle.js', '*'] : ['*']
 	    });
 	}
 
@@ -904,110 +911,84 @@ module.exports =
 
 	'use strict';
 	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = config;
 	
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	var _path = __webpack_require__(5);
 	
-	var path = __webpack_require__(5);
-	var webpack = __webpack_require__(8);
-	var HtmlWebpackPlugin = __webpack_require__(26);
-	var nodeExternals = __webpack_require__(32);
-	var HtmlWebpackHarddiskPlugin = __webpack_require__(25);
+	var _path2 = _interopRequireDefault(_path);
 	
-	module.exports = function (_ref) {
+	var _polypacker = __webpack_require__(6);
+	
+	var _htmlWebpackPlugin = __webpack_require__(26);
+	
+	var _htmlWebpackPlugin2 = _interopRequireDefault(_htmlWebpackPlugin);
+	
+	var _htmlWebpackHarddiskPlugin = __webpack_require__(25);
+	
+	var _htmlWebpackHarddiskPlugin2 = _interopRequireDefault(_htmlWebpackHarddiskPlugin);
+	
+	var _htmlWebpackTemplate = __webpack_require__(27);
+	
+	var _htmlWebpackTemplate2 = _interopRequireDefault(_htmlWebpackTemplate);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; } /* TODO unused and probably the wrong approach
+	                                                                                                                                                                                                                              * The right way to handle different polypacker templates is to make everything in the default overridable, AND have a "webpack template" option. Right now Polypacker is only really suitable for developing "fullstack components", not for the requirements of a webapp or framework
+	                                                                                                                                                                                                                              */
+	
+	function config(_ref) {
 	    var _ref$title = _ref.title;
 	    var title = _ref$title === undefined ? 'Bufflehead App' : _ref$title;
 	
 	    var settings = _objectWithoutProperties(_ref, ['title']);
 	
-	    var htmlPlugin = new HtmlWebpackPlugin({
+	    process.chdir(process.env.PWD);
+	    var pwd = './';
+	    var htmlPlugin = new _htmlWebpackPlugin2.default({
 	        alwaysWriteToDisk: true,
-	        template: __webpack_require__(27),
+	        template: _htmlWebpackTemplate2.default,
 	        appMountId: 'app',
 	        title: title,
 	        filename: 'index.html',
 	        inject: false,
 	        window: { settings: settings }
 	    });
-	    var compound_version = 'browser_' + ("DEVELOPMENT").toLowerCase();
-	    var fallbacks = [path.join(process.cwd(), "node_modules/polypacker/node_modules"), path.join(process.cwd(), "node_modules/domain-driven-redux-react/node_modules")];
-	    return _extends({},  true ? { devtool: 'source-map' } : {}, {
-	        context: process.cwd(),
-	        debug: ("DEVELOPMENT") != 'PRODUCTION',
-	        target: 'web',
-	        entry:  true ? ['webpack-hot-middleware/client', './src/index'] : ['./src/index'],
-	        output: {
-	            path: path.join(process.cwd(), "dist"),
-	            filename: 'bundle.js',
-	            publicPath: '/static/'
-	        },
-	        plugins:  true ? [new webpack.DefinePlugin({ $ES: { CONTEXT: JSON.stringify('BROWSER'), ENV: JSON.stringify(("DEVELOPMENT")) } }), new webpack.optimize.OccurenceOrderPlugin(), new webpack.HotModuleReplacementPlugin(), new webpack.NoErrorsPlugin(), htmlPlugin, new HtmlWebpackHarddiskPlugin()] : [new webpack.DefinePlugin({ $ES: { CONTEXT: JSON.stringify('BROWSER'), ENV: JSON.stringify($ES.ENV) } }), new webpack.DefinePlugin({ "process.env": { NODE_ENV: '"production"' } }), new webpack.optimize.DedupePlugin(), new webpack.optimize.OccurenceOrderPlugin(), htmlPlugin, new HtmlWebpackHarddiskPlugin()
-	        //new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})
-	        ],
-	        resolveLoader: {
-	            moduleDirectories: ["node_modules"],
-	            root: path.join(process.cwd(), "node_modules"),
-	            fallback: fallbacks,
-	            alias: { polypack: 'callback?polypack' }
-	        },
-	        callbackLoader: {
-	            polypack: function polypack(mod) {
-	                var compound_version = 'browser_' + ("DEVELOPMENT").toLowerCase();
-	                if (mod) {
-	                    return 'require("' + mod + '/dist/for/' + compound_version + '") //polypacked secondhand';
-	                } else {
-	                    return 'require("./for/' + compound_version + '") //polypacked by dist';
+	    var fallback = [_path2.default.join(__dirname, "node_modules"), _path2.default.join(pwd, "node_modules"), _path2.default.join(pwd, "node_modules/polypacker/node_modules"), _path2.default.join(pwd, "node_modules/domain-driven-redux-react/node_modules")];
+	    return (0, _polypacker.configBuilder)({
+	        entry: './src/index',
+	        out: 'bundle.js',
+	        hot: true,
+	        context: 'BROWSER',
+	        env: ("DEVELOPMENT"),
+	        plugins: [htmlPlugin, new _htmlWebpackHarddiskPlugin2.default()],
+	        babelPresets: ['react'],
+	        overrides: {
+	            output: {
+	                path: _path2.default.resolve(_path2.default.join(pwd, "dist")),
+	                filename: 'bundle.js',
+	                publicPath: '/static/'
+	            },
+	            resolve: {
+	                root: _path2.default.resolve(pwd),
+	                modulesDirectories: ["node_modules", "node_modules/polypacker/node_modules"],
+	                extensions: ["", ".json", ".js", ".jsx"],
+	                fallback: fallback,
+	                alias: {
+	                    react: _path2.default.join(pwd, './node_modules/react')
 	                }
-	            }
-	        },
-	        module: {
-	            loaders: [{
-	                test: /\.js$|\.jsx$/,
-	                loader: 'babel',
-	                exclude: /node_modules/,
-	                include: [process.cwd()],
-	                query: {
-	                    presets: ['es2015', 'react', 'stage-0', 'react-hmre'].map(function (preset) {
-	                        return 'babel-preset-' + preset;
-	                    })
-	                }
-	            }, {
-	                test: /\.json$/, loader: 'json-loader'
-	            }, {
-	                test: /\.css$/, loader: 'style-loader!css-loader'
-	            }, {
-	                test: /\.less$/, loader: 'style-loader!css-loader!less-loader'
-	            }, {
-	                test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&includePaths[]=' + path.resolve(process.cwd(), "./node_modules")
-	            }, {
-	                test: /\.woff(2)?(\?.+)?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff"
-	            }, {
-	                test: /\.ttf(\?.+)?$/, loader: "url-loader?limit=10000&mimetype=application/octet-stream"
-	            }, {
-	                test: /\.eot(\?.+)?$/, loader: "file-loader"
-	            }, {
-	                test: /\.svg(\?.+)?$/, loader: "url-loader?limit=10000&mimetype=image/svg+xml"
-	            }, {
-	                test: /\.png$/, loader: "url-loader?limit=100000"
-	            }, {
-	                test: /\.jpg$/, loader: "file-loader"
-	            }]
-	        },
-	        resolve: {
-	            modulesDirectories: ["node_modules", "polypacker/node_modules"],
-	            extensions: ["", ".json", ".js", ".jsx"],
-	            root: path.join(process.cwd(), "node_modules"),
-	            fallback: fallbacks,
-	            alias: {
-	                react: path.join(process.cwd(), './node_modules/react')
-	            }
-	        },
-	        node: {
-	            __dirname: true,
-	            fs: 'empty'
+	            },
+	            node: {
+	                __dirname: true,
+	                fs: 'empty'
+	            },
+	            externals: []
 	        }
 	    });
-	};
+	}
 
 /***/ },
 /* 23 */
@@ -1055,19 +1036,19 @@ module.exports =
 /* 30 */
 /***/ function(module, exports) {
 
-	module.exports = require("webpack-dev-middleware");
+	module.exports = require("webpack");
 
 /***/ },
 /* 31 */
 /***/ function(module, exports) {
 
-	module.exports = require("webpack-hot-middleware");
+	module.exports = require("webpack-dev-middleware");
 
 /***/ },
 /* 32 */
 /***/ function(module, exports) {
 
-	module.exports = require("webpack-node-externals");
+	module.exports = require("webpack-hot-middleware");
 
 /***/ }
 /******/ ]);

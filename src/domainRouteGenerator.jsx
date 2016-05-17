@@ -40,6 +40,7 @@ function swapChildrenComponentsForContainers({children, domainRoutes}){
     })
 }
 export function swapRouteComponentForContainer({route, domainRoutes}){
+    console.log(route)
     let children = route.props.children
     let match = domainRoutes.filter(r => r.original == route.props.component)[0]
     return React.cloneElement(
@@ -53,6 +54,7 @@ export function swapRouteComponentForContainer({route, domainRoutes}){
 }
 
 function swapContainersIntoRoutes(route, domains){
+    console.log(route)
     return swapRouteComponentForContainer({
         route,
         domainRoutes: findContainerizedRoutes(domains)

@@ -16,6 +16,8 @@ module.exports = function({title='Bufflehead App', ...settings}){
     })
     var compound_version =  'browser_' + $ES.ENV.toLowerCase()
     var fallbacks = [
+        path.join(__dirname, "node_modules"),
+        path.join(process.cwd(), "node_modules"),
         path.join(process.cwd(), "node_modules/polypacker/node_modules"),
         path.join(process.cwd(), "node_modules/domain-driven-redux-react/node_modules")
     ]
@@ -50,7 +52,7 @@ module.exports = function({title='Bufflehead App', ...settings}){
             //new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})
         ],
         resolveLoader: {
-            moduleDirectories: ["node_modules"],
+            moduleDirectories: ["node_modules", "polypacker/node_modules"],
             root: path.join(process.cwd(), "node_modules"),
             fallback: fallbacks,
             alias: { polypack: 'callback?polypack' }
@@ -73,7 +75,7 @@ module.exports = function({title='Bufflehead App', ...settings}){
                 exclude: /node_modules/,
                 include: [process.cwd()],
                 query: {
-                    presets: ['es2015', 'react', 'stage-0', 'react-hmre'].map(preset => `babel-preset-${preset}`)
+                    presets: ['es2015', 'react', 'stage-0', 'react-hmre'].map(preset => `babel-preset-${preset}`).map(require.resolve)
                 },
             }, {
                 test: /\.json$/, loader: 'json-loader'
@@ -99,7 +101,7 @@ module.exports = function({title='Bufflehead App', ...settings}){
             ]
         },
         resolve: {
-            modulesDirectories: [ "node_modules", "polypacker/node_modules" ],
+            modulesDirectories: [ "node_modules", "node_modules/polypacker/node_modules" ],
             extensions: ["", ".json", ".js", ".jsx"],
             root: path.join(process.cwd(), "node_modules"),
             fallback: fallbacks,
