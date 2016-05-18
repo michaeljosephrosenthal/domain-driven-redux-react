@@ -1,10 +1,9 @@
 import { reactiveClient as ddReactiveClient, storePersistencePlugin } from 'strictduck-domain-driven-fullstack'
-import reduxStore from './store'
+import { store as reduxStore, expandReduxDomains } from './redux'
 import createRouter from './createRouter'
 import domainRouteGenerator from './domainRouteGenerator'
-import expandReduxDomains from './expandReduxDomains'
 
-const provider = ($ES.CONTEXT == 'NODE' ? require('./provideServerDomain') : require('./render')).default
+const provider = ($ES.CONTEXT == 'NODE' ? require('./server/provideDomain') : require('./react/render')).default
 
 export default ddReactiveClient.implement({
     name: 'DomainDrivenReduxReactClient',
