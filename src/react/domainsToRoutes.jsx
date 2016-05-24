@@ -2,7 +2,7 @@ import React from 'react'
 import { IndexRedirect, Route } from 'react-router'
 import generateDefaultRoot from './rootGenerator'
 
-function filterDomainsForType(domains, type){
+export function filterDomainsForType(domains, type){
     return Object.keys(domains)
         .map(k => domains[k])
         .filter(domain => Object.keys(domain.get(type)).length)
@@ -15,7 +15,7 @@ function addKey(route){
             ...route.props,
             key: route.props.key || route.props.path || '/'
         },
-        route.children
+        route.props.children
     )
 }
 
@@ -49,7 +49,7 @@ function oneSlash(str){
     return str.startsWith('/') ? str : `/${str}`
 }
 
-function extractPath({prefix, route: domainRoute}){
+export function extractPath({prefix, route: domainRoute}){
     if(React.isValidElement(domainRoute))
         return oneSlash(domainRoute.props.path);
 
