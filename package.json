@@ -1,6 +1,6 @@
 {
   "name": "domain-driven-redux-react",
-  "version": "0.1.7-alpha",
+  "version": "0.1.7-alpha.1",
   "description": "Implementation of a domain-driven reactiveClient strictduck using redux and react",
   "main": "dist/index.js",
   "scripts": {
@@ -24,6 +24,7 @@
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "6.3.13",
     "callback-loader": "^0.2.4",
+    "react-hot-loader": "^3.0.0-beta.2",
     "flux-standard-action": "0.6.0",
     "history": "1.17.0",
     "html-loader": "^0.4.3",
@@ -54,5 +55,9 @@
   "homepage": "https://github.com/michaeljosephrosenthal/domain-driven-redux-react#readme",
   "devDependencies": {
     "polypacker": "0.1.8"
+  },
+  "babel": {
+    "presets": ["es2015", "stage-0", "react"],
+    "plugins": ["react-hot-loader/babel"]
   }
 }

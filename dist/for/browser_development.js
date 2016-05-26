@@ -181,6 +181,31 @@ module.exports =
 	function domainsToRoutes(domains) {
 	    return resolveRootRoute(domains);
 	}
+	;
+	
+	(function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	
+	    __REACT_HOT_LOADER__.register(filterDomainsForType, 'filterDomainsForType', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/react/domainsToRoutes.jsx');
+	
+	    __REACT_HOT_LOADER__.register(addKey, 'addKey', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/react/domainsToRoutes.jsx');
+	
+	    __REACT_HOT_LOADER__.register(resolveRouteFromDomain, 'resolveRouteFromDomain', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/react/domainsToRoutes.jsx');
+	
+	    __REACT_HOT_LOADER__.register(extractRootRouteDomain, 'extractRootRouteDomain', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/react/domainsToRoutes.jsx');
+	
+	    __REACT_HOT_LOADER__.register(oneSlash, 'oneSlash', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/react/domainsToRoutes.jsx');
+	
+	    __REACT_HOT_LOADER__.register(extractPath, 'extractPath', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/react/domainsToRoutes.jsx');
+	
+	    __REACT_HOT_LOADER__.register(resolveRootRoute, 'resolveRootRoute', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/react/domainsToRoutes.jsx');
+	
+	    __REACT_HOT_LOADER__.register(domainsToRoutes, 'domainsToRoutes', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/react/domainsToRoutes.jsx');
+	})();
+
+	;
 
 /***/ },
 /* 6 */
@@ -256,6 +281,17 @@ module.exports =
 	        return Nav;
 	    }(_react2.default.Component);
 	}
+	;
+	
+	(function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	
+	    __REACT_HOT_LOADER__.register(generator, 'generator', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/react/navGenerator.jsx');
+	})();
+
+	;
 
 /***/ },
 /* 7 */
@@ -285,6 +321,15 @@ module.exports =
 	exports.store = _store3.default;
 	exports.expandReduxDomains = _expandReduxDomains3.default;
 	exports.swapContainersIntoRoutes = _swapContainersIntoRoutes3.default;
+	;
+
+	(function () {
+	  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	    return;
+	  }
+	})();
+
+	;
 
 /***/ },
 /* 8 */
@@ -459,7 +504,8 @@ module.exports =
 	    return Provider;
 	}(_react.Component);
 	
-	exports.default = Provider;
+	var _default = Provider;
+	exports.default = _default;
 	
 	
 	if (process.env.NODE_ENV !== 'production') {
@@ -480,6 +526,21 @@ module.exports =
 	Provider.childContextTypes = {
 	    store: storeShape.isRequired
 	};
+	;
+	
+	(function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	
+	    __REACT_HOT_LOADER__.register(Provider, 'Provider', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/HotReloadingProvider.jsx');
+	
+	    __REACT_HOT_LOADER__.register(storeShape, 'storeShape', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/HotReloadingProvider.jsx');
+	
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/HotReloadingProvider.jsx');
+	})();
+
+	;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ },
@@ -510,7 +571,7 @@ module.exports =
 	
 	var _provider = ( false ? require('./server/provideDomain') : __webpack_require__(17)).default;
 	
-	exports.default = _strictduckDomainDrivenFullstack.reactiveClient.implement({
+	var _default = _strictduckDomainDrivenFullstack.reactiveClient.implement({
 	    name: 'DomainDrivenReduxReactClient',
 	    constructor: function constructor(_ref) {
 	        var _ref$Domains = _ref.Domains;
@@ -553,6 +614,21 @@ module.exports =
 	        return _provider.bind(this)(this.settings);
 	    }
 	});
+	
+	exports.default = _default;
+	;
+	
+	(function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	
+	    __REACT_HOT_LOADER__.register(_provider, 'provider', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/client.js');
+	
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/client.js');
+	})();
+
+	;
 
 /***/ },
 /* 14 */
@@ -592,6 +668,19 @@ module.exports =
 	    )
 	  );
 	}
+	;
+	
+	(function () {
+	  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	    return;
+	  }
+	
+	  __REACT_HOT_LOADER__.register(createRouter, 'createRouter', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/createRouter.jsx');
+	
+	  __REACT_HOT_LOADER__.register(Provider, 'Provider', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/createRouter.jsx');
+	})();
+
+	;
 
 /***/ },
 /* 15 */
@@ -621,6 +710,17 @@ module.exports =
 	function domainRouteGenerator(domains) {
 	    return (0, _redux.swapContainersIntoRoutes)((0, _domainsToRoutes2.default)(domains), domains);
 	}
+	;
+	
+	(function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	
+	    __REACT_HOT_LOADER__.register(domainRouteGenerator, 'domainRouteGenerator', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/domainRouteGenerator.jsx');
+	})();
+
+	;
 
 /***/ },
 /* 16 */
@@ -647,6 +747,15 @@ module.exports =
 	
 	exports.default = _client2.default;
 	exports.utils = _utils;
+	;
+
+	(function () {
+	  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	    return;
+	  }
+	})();
+
+	;
 
 /***/ },
 /* 17 */
@@ -659,12 +768,34 @@ module.exports =
 	});
 	exports.default = renderClient;
 	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
 	var _reactDom = __webpack_require__(29);
 	
+	var _reactHotLoader = __webpack_require__(30);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	function renderClient() {
-	    (0, _reactDom.unmountComponentAtNode)(document.getElementById(this.elementId));
-	    (0, _reactDom.render)(this.router, document.getElementById(this.elementId));
+	    (0, _reactDom.render)(_react2.default.createElement(
+	        _reactHotLoader.AppContainer,
+	        null,
+	        this.router
+	    ), document.getElementById(this.elementId));
 	}
+	;
+	
+	(function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	
+	    __REACT_HOT_LOADER__.register(renderClient, "renderClient", "/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/react/render.jsx");
+	})();
+
+	;
 
 /***/ },
 /* 18 */
@@ -726,6 +857,17 @@ module.exports =
 	        return Root;
 	    }(_react2.default.Component);
 	}
+	;
+	
+	(function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	
+	    __REACT_HOT_LOADER__.register(generator, 'generator', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/react/rootGenerator.jsx');
+	})();
+
+	;
 
 /***/ },
 /* 19 */
@@ -752,6 +894,17 @@ module.exports =
 	        return map;
 	    }, {}));
 	}
+	;
+	
+	(function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	
+	    __REACT_HOT_LOADER__.register(combineAllDomainReducers, 'combineAllDomainReducers', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/combineAllDomainReducers.js');
+	})();
+
+	;
 
 /***/ },
 /* 20 */
@@ -767,16 +920,29 @@ module.exports =
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	exports.default = function (reducers) {
+	var _redux = __webpack_require__(3);
+	
+	var _reduxRouter = __webpack_require__(4);
+	
+	var _default = function _default(reducers) {
 	  if ((typeof reducers === 'undefined' ? 'undefined' : _typeof(reducers)) !== 'object') {
 	    throw "Reactuate reducers should be an object (and not a function)";
 	  }
 	  return (0, _redux.combineReducers)(_extends({ router: _reduxRouter.routerStateReducer }, reducers));
 	};
 	
-	var _redux = __webpack_require__(3);
-	
-	var _reduxRouter = __webpack_require__(4);
+	exports.default = _default;
+	;
+
+	(function () {
+	  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	    return;
+	  }
+
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/combineReducers.js');
+	})();
+
+	;
 
 /***/ },
 /* 21 */
@@ -788,7 +954,13 @@ module.exports =
 	  value: true
 	});
 	
-	exports.default = function (domain, action) {
+	var _tcomb = __webpack_require__(11);
+	
+	var _tcomb2 = _interopRequireDefault(_tcomb);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _default = function _default(domain, action) {
 	  var payload = arguments.length <= 2 || arguments[2] === undefined ? _tcomb2.default.Any : arguments[2];
 	  var defaultValue = arguments.length <= 3 || arguments[3] === undefined ? undefined : arguments[3];
 	  var meta = arguments.length <= 4 || arguments[4] === undefined ? _tcomb2.default.Any : arguments[4];
@@ -850,11 +1022,18 @@ module.exports =
 	  return ActionCreator;
 	};
 	
-	var _tcomb = __webpack_require__(11);
-	
-	var _tcomb2 = _interopRequireDefault(_tcomb);
+	exports.default = _default;
+	;
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	(function () {
+	  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	    return;
+	  }
+
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/createAction.js');
+	})();
+
+	;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ },
@@ -867,7 +1046,15 @@ module.exports =
 	  value: true
 	});
 	
-	exports.default = function (domain, initialState) {
+	var _tcomb = __webpack_require__(11);
+	
+	var _tcomb2 = _interopRequireDefault(_tcomb);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
+	var _default = function _default(domain, initialState) {
 	  for (var _len = arguments.length, cases = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
 	    cases[_key - 2] = arguments[_key];
 	  }
@@ -901,13 +1088,18 @@ module.exports =
 	  return reducer;
 	};
 	
-	var _tcomb = __webpack_require__(11);
-	
-	var _tcomb2 = _interopRequireDefault(_tcomb);
+	exports.default = _default;
+	;
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	(function () {
+	  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	    return;
+	  }
 
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/createReducer.js');
+	})();
+
+	;
 
 /***/ },
 /* 23 */
@@ -929,7 +1121,7 @@ module.exports =
 	
 	var _createAction2 = _interopRequireDefault(_createAction);
 	
-	var _strictduck = __webpack_require__(30);
+	var _strictduck = __webpack_require__(31);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -998,6 +1190,29 @@ module.exports =
 	        return newDomains;
 	    }, {});
 	}
+	;
+	
+	(function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	
+	    __REACT_HOT_LOADER__.register(nameActionCreator, 'nameActionCreator', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/dataFlow.js');
+	
+	    __REACT_HOT_LOADER__.register(actionType, 'actionType', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/dataFlow.js');
+	
+	    __REACT_HOT_LOADER__.register(flowToAction, 'flowToAction', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/dataFlow.js');
+	
+	    __REACT_HOT_LOADER__.register(flowToReducer, 'flowToReducer', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/dataFlow.js');
+	
+	    __REACT_HOT_LOADER__.register(mergeReducers, 'mergeReducers', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/dataFlow.js');
+	
+	    __REACT_HOT_LOADER__.register(unpackDataFlowsIntoDomain, 'unpackDataFlowsIntoDomain', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/dataFlow.js');
+	
+	    __REACT_HOT_LOADER__.register(unpackDataFlowsIntoDomains, 'unpackDataFlowsIntoDomains', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/dataFlow.js');
+	})();
+
+	;
 
 /***/ },
 /* 24 */
@@ -1074,6 +1289,25 @@ module.exports =
 	        return newDomains;
 	    }, {});
 	}
+	;
+	
+	(function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	
+	    __REACT_HOT_LOADER__.register(domainReduxConnector, 'domainReduxConnector', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/expandReduxDomains.js');
+	
+	    __REACT_HOT_LOADER__.register(connectDomainRoutes, 'connectDomainRoutes', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/expandReduxDomains.js');
+	
+	    __REACT_HOT_LOADER__.register(expandReactRouterRoute, 'expandReactRouterRoute', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/expandReduxDomains.js');
+	
+	    __REACT_HOT_LOADER__.register(expandReduxDomain, 'expandReduxDomain', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/expandReduxDomains.js');
+	
+	    __REACT_HOT_LOADER__.register(expandReduxDomains, 'expandReduxDomains', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/expandReduxDomains.js');
+	})();
+
+	;
 
 /***/ },
 /* 25 */
@@ -1137,7 +1371,23 @@ module.exports =
 	    return DomainDrivenReduxStore;
 	}(_strictduckDomainDrivenFullstack.clientStore.default);
 	
-	exports.default = DomainDrivenReduxStore;
+	var _default = DomainDrivenReduxStore;
+	exports.default = _default;
+	;
+	
+	(function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	
+	    __REACT_HOT_LOADER__.register(DomainDrivenReduxStore, 'DomainDrivenReduxStore', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/store.js');
+	
+	    __REACT_HOT_LOADER__.register(createHistory, 'createHistory', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/store.js');
+	
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/store.js');
+	})();
+
+	;
 
 /***/ },
 /* 26 */
@@ -1217,6 +1467,27 @@ module.exports =
 	        domainRoutes: findContainerizedRoutes(domains)
 	    });
 	}
+	;
+	
+	(function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	
+	    __REACT_HOT_LOADER__.register(filterDomainsForType, 'filterDomainsForType', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/swapContainersIntoRoutes.jsx');
+	
+	    __REACT_HOT_LOADER__.register(findContainerizedRoutes, 'findContainerizedRoutes', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/swapContainersIntoRoutes.jsx');
+	
+	    __REACT_HOT_LOADER__.register(applyToChildren, 'applyToChildren', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/swapContainersIntoRoutes.jsx');
+	
+	    __REACT_HOT_LOADER__.register(swapChildrenComponentsForContainers, 'swapChildrenComponentsForContainers', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/swapContainersIntoRoutes.jsx');
+	
+	    __REACT_HOT_LOADER__.register(swapRouteComponentForContainer, 'swapRouteComponentForContainer', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/swapContainersIntoRoutes.jsx');
+	
+	    __REACT_HOT_LOADER__.register(swapContainersIntoRoutes, 'swapContainersIntoRoutes', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/redux/swapContainersIntoRoutes.jsx');
+	})();
+
+	;
 
 /***/ },
 /* 27 */
@@ -1242,6 +1513,15 @@ module.exports =
 	    return _domainsToRoutes.extractPath;
 	  }
 	});
+	;
+
+	(function () {
+	  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	    return;
+	  }
+	})();
+
+	;
 
 /***/ },
 /* 28 */
@@ -1257,6 +1537,12 @@ module.exports =
 
 /***/ },
 /* 30 */
+/***/ function(module, exports) {
+
+	module.exports = require("react-hot-loader");
+
+/***/ },
+/* 31 */
 /***/ function(module, exports) {
 
 	module.exports = require("strictduck");

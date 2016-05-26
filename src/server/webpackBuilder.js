@@ -38,6 +38,12 @@ export default function config({title='Bufflehead App', ...settings}){
         ],
         babelPresets: ['react'],
         overrides: {
+            entry: [
+                'webpack-dev-server/client?http://localhost:3000',
+                'webpack/hot/only-dev-server',
+                'react-hot-loader/patch',
+                './src/index',
+            ], 
             output: {
                 path: path.resolve(path.join(pwd, "dist")),
                 filename: 'bundle.js',
