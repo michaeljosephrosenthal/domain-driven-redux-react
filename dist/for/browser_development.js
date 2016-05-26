@@ -761,7 +761,7 @@ module.exports =
 /* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -778,6 +778,7 @@ module.exports =
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	if (true) __webpack_require__(31);
 	function renderClient() {
 	    (0, _reactDom.render)(_react2.default.createElement(
 	        _reactHotLoader.AppContainer,
@@ -792,7 +793,7 @@ module.exports =
 	        return;
 	    }
 	
-	    __REACT_HOT_LOADER__.register(renderClient, "renderClient", "/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/react/render.jsx");
+	    __REACT_HOT_LOADER__.register(renderClient, 'renderClient', '/Users/mjr/Documents/code/internal/framework/domain-driven-implementations/redux-react/src/react/render.jsx');
 	})();
 
 	;
@@ -1121,7 +1122,7 @@ module.exports =
 	
 	var _createAction2 = _interopRequireDefault(_createAction);
 	
-	var _strictduck = __webpack_require__(31);
+	var _strictduck = __webpack_require__(32);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1543,6 +1544,12 @@ module.exports =
 
 /***/ },
 /* 31 */
+/***/ function(module, exports) {
+
+	module.exports = require("react-hot-loader/patch");
+
+/***/ },
+/* 32 */
 /***/ function(module, exports) {
 
 	module.exports = require("strictduck");

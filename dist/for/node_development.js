@@ -1522,7 +1522,6 @@ module.exports =
 	        plugins: [htmlPlugin, new _htmlWebpackHarddiskPlugin2.default()],
 	        babelPresets: ['react'],
 	        overrides: {
-	            entry: ['webpack-dev-server/client?http://localhost:3000', 'webpack/hot/only-dev-server', 'react-hot-loader/patch', './src/index'],
 	            output: {
 	                path: _path2.default.resolve(_path2.default.join(pwd, "dist")),
 	                filename: 'bundle.js',
